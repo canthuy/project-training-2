@@ -6,7 +6,7 @@ function App() {
 
   useEffect(()=>{
     const callAPI = () => {
-      fetch('http://localhost:3001/hello')
+      fetch('http://localhost:3002/hello')
         .then(response => {
            return response.json()
         })
