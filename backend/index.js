@@ -11,6 +11,12 @@ const requestListener = function (req, res) {
       res.writeHead(200);
       res.end(JSON.stringify("Hello World!"))
       break;
+    case '/device_summary':
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.writeHead(200);
+      res.end(JSON.stringify({iOS: 40, android: 60}))
+      break;
     default:
       res.writeHead(404);
       res.end(JSON.stringify("Resource not found"));
