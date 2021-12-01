@@ -1,0 +1,38 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "indent": [ 2, 2, { "SwitchCase": 1}],
+    "quotes": [ 2, "single" ],
+    "semi": [ 2, "always" ],
+    "curly": [ 2, "all" ],
+    "camelcase": [ 2, { "properties": "always" } ],
+    "eqeqeq": [ 2, "smart" ],
+    "no-unused-vars": 1,
+    "react/react-in-jsx-scope": 0,
+    "no-case-declarations": 0,
+    "prettier/prettier": 0
+  },
+  "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+          "jsx": true
+      }
+  },
+  "env": {
+      "browser": true,
+      "es6": true
+  },
+  "globals": {
+      "arguments": true
+  }
+}

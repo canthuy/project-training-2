@@ -1,6 +1,5 @@
-import ChartDoughnut from "./components/Chart";
-import {useEffect, useState} from 'react';
-
+import ChartDoughnut from './components/Chart';
+import { useEffect, useState } from 'react';
 function App() {
   return (
     <div>
@@ -8,5 +7,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
