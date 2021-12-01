@@ -1,4 +1,4 @@
-import ChartDoughnut from './components/Chart';
+import ChartDoughnut from './containers/ChartDonut/ChartDonut';
 
 function App() {
   return (

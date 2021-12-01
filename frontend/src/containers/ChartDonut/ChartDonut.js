@@ -2,9 +2,8 @@ import { Chart, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { useSelector, useDispatch } from 'react-redux';
 import { Fragment, useEffect } from 'react';
-import { getData } from '../redux/doughnut/actions';
-import Error from './UI/Error';
-import ChartSC from './UI/ChartSC';
+import { getData } from '../../redux/doughnut/actions';
+import { ChartSC, Error } from './ChartDounut.styles';
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
 const ChartDoughnut = () => {
