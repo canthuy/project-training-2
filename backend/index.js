@@ -1,30 +1,30 @@
-
 const http = require("http");
-const host = 'localhost';
+const host = "localhost";
 const port = 3002;
 
 const requestListener = function (req, res) {
-  switch(req.url){
-    case '/hello':
-      res.setHeader('Content-Type', 'application/json');
+  switch (req.url) {
+    case "/hello":
+      res.setHeader("Content-Type", "application/json");
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.writeHead(200);
-      res.end(JSON.stringify("Hello World!"))
+      res.end(JSON.stringify("Hello World!"));
       break;
-    case '/device_summary':
-      res.setHeader('Content-Type', 'application/json');
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.writeHead(200);
-      res.end(JSON.stringify({iOS: 40, android: 60}))
+    case "/device_summary":
+      setTimeout(() => {
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({ iOS: 40, android: 60 }));
+      }, 10000);
       break;
     default:
       res.writeHead(404);
       res.end(JSON.stringify("Resource not found"));
-    }
+  }
 };
 
 const server = http.createServer(requestListener);
-server.listen(port, host, ()=>{
+server.listen(port, host, () => {
   console.log(`Server is running on http://${host}:${port}\n`);
-
 });

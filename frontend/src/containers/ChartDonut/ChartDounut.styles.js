@@ -10,4 +10,10 @@ const Error = styled.h2`
   color: #be0f0f;
   margin: 20px;
 `;
-export { ChartSC, Error };
+
+const SpinnerSC = styled.div`
+  text-align: center;
+  margin: 10rem auto;
+`;
+
+export { ChartSC, Error, SpinnerSC };
