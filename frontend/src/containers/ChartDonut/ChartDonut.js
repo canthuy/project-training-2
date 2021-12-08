@@ -3,8 +3,8 @@ import { Doughnut } from 'react-chartjs-2';
 import { useSelector, useDispatch } from 'react-redux';
 import { Fragment, useEffect } from 'react';
 import { getData } from '../../redux/doughnut/actions';
-import { ChartSC, Error, SpinnerSC } from './ChartDounut.styles';
-import { Spinner } from 'react-bootstrap';
+import { ChartSC, Error } from './ChartDonut.styles';
+import Loading from '../../components/Loading/Loading';
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
 const ChartDoughnut = () => {
@@ -67,11 +67,7 @@ const ChartDoughnut = () => {
   );
   return (
     <Fragment>
-      {isLoading && (
-        <SpinnerSC>
-          <Spinner animation="border" />
-        </SpinnerSC>        
-      )}
+      {isLoading && <Loading />}
       {isError && <Error>Error: Network Error</Error>}
       {!isError && !isLoading && displayChart}
     </Fragment>

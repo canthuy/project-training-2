@@ -11,9 +11,4 @@ const Error = styled.h2`
   margin: 20px;
 `;
 
-const SpinnerSC = styled.div`
-  text-align: center;
-  margin: 10rem auto;
-`;
-
-export { ChartSC, Error, SpinnerSC };
+export { ChartSC, Error };
