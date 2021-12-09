@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
-import renderer from 'react-test-renderer';
 import ChartDonut from '../containers/ChartDonut/ChartDonut';
 window.React = React;
 
@@ -23,7 +22,7 @@ describe('ChartDonut Component', () => {
     useSelector.mockClear();
     useDispatch.mockClear();
   });
-  it('loading data', ()=>{
+  it('loading data', () => {
     mockAppState = {
       deviceData: {},
       loading: true,
@@ -31,8 +30,7 @@ describe('ChartDonut Component', () => {
     };
     const { container } = render(<ChartDonut />);
     const elements = container.querySelector('div');
-    const tree = renderer.create(<ChartDonut />).toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
     expect(elements.firstChild.className).toEqual('spinner-border');
   });
   it('get data success', () => {
@@ -42,9 +40,8 @@ describe('ChartDonut Component', () => {
       isError: false,
     };
     const { container } = render(<ChartDonut />);
-    const tree = renderer.create(<ChartDonut />).toJSON();
-    expect(tree).toMatchSnapshot();
-    expect(container.querySelector('canvas')).toBeTruthy();  
+    expect(container).toMatchSnapshot();
+    expect(container.querySelector('canvas')).toBeTruthy();
   });
   it('get data error', () => {
     mockAppState = {
@@ -52,9 +49,8 @@ describe('ChartDonut Component', () => {
       loading: false,
       isError: true,
     };
-    render(<ChartDonut />);
-    const tree = renderer.create(<ChartDonut />).toJSON();
-    expect(tree).toMatchSnapshot();
+    const { container } = render(<ChartDonut />);
+    expect(container).toMatchSnapshot();
     expect(screen.getByText('Error: Network Error')).toBeTruthy();
   });
 });
