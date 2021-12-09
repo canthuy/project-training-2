@@ -10,4 +10,5 @@ const Error = styled.h2`
   color: #be0f0f;
   margin: 20px;
 `;
+
 export { ChartSC, Error };

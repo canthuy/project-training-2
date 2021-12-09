@@ -3,7 +3,8 @@ import { Doughnut } from 'react-chartjs-2';
 import { useSelector, useDispatch } from 'react-redux';
 import { Fragment, useEffect } from 'react';
 import { getData } from '../../redux/doughnut/actions';
-import { ChartSC, Error } from './ChartDounut.styles';
+import { ChartSC, Error } from './ChartDonut.styles';
+import Loading from '../../components/Loading/Loading';
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
 const ChartDoughnut = () => {
@@ -66,6 +67,7 @@ const ChartDoughnut = () => {
   );
   return (
     <Fragment>
+      {isLoading && <Loading />}
       {isError && <Error>Error: Network Error</Error>}
       {!isError && !isLoading && displayChart}
     </Fragment>
