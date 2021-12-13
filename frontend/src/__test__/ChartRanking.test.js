@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
-import ChartDonut from '../containers/ChartDonut/ChartDonut';
+import ChartRanking from '../containers/ChartRanking/ChartRanking';
 window.React = React;
 
 jest.mock('react-redux', () => ({
@@ -10,7 +10,7 @@ jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
 }));
 
-describe('ChartDonut Component', () => {
+describe('ChartRanking Component', () => {
   let mockAppState = {};
   beforeEach(() => {
     useDispatch.mockImplementation(() => () => {});
@@ -22,40 +22,45 @@ describe('ChartDonut Component', () => {
     useSelector.mockClear();
     useDispatch.mockClear();
   });
-  it('loading data', () => {
+  it('Loading data', () => {
     mockAppState = {
-      device: {
-        deviceData: {},
+      ranking: {
+        rankingData: [],
         loading: true,
         isError: false,
       },
     };
-    const { container } = render(<ChartDonut />);
-    const elements = container.querySelector('div').firstChild;
+    const { container } = render(<ChartRanking />);
     expect(container).toMatchSnapshot();
-    expect(elements.firstChild.className).toEqual('spinner-border');
+    const element = container.querySelector('div').firstChild;
+    expect(element.firstChild.className).toEqual('spinner-border');
   });
   it('get data success', () => {
     mockAppState = {
-      device: {
-        deviceData: { android: 50, iOS: 50 },
+      ranking: {
+        rankingData: [
+          { label: 'Day 1', value: 10 },
+          { label: 'Day 2', value: 4 },
+          { label: 'Day 3', value: 3 },
+        ],
         loading: false,
         isError: false,
       },
     };
-    const { container } = render(<ChartDonut />);
+    const { container } = render(<ChartRanking />);
     expect(container).toMatchSnapshot();
     expect(container.querySelector('canvas')).toBeTruthy();
   });
+
   it('get data error', () => {
     mockAppState = {
-      device: {
-        deviceData: {},
+      ranking: {
+        rankingData: [],
         loading: false,
         isError: true,
       },
     };
-    const { container } = render(<ChartDonut />);
+    const { container } = render(<ChartRanking />);
     expect(container).toMatchSnapshot();
     expect(screen.getByText('Error: Network Error')).toBeTruthy();
   });
