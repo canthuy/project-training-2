@@ -1,33 +1,32 @@
 import {
-  GET_DEVICE_DATA,
-  GET_DATA_SUCCESS,
-  GET_DATA_ERROR,
+  GET_RANKING_DATA,
+  GET_RANKING_SUCCESS,
+  GET_RANKING_ERROR,
 } from './ActionType';
 
 const initState = {
-  deviceData: {},
+  rankingData: [],
   loading: false,
   isError: false,
 };
-const reducer = (state = initState, action) => {
+const rankingReducer = (state = initState, action) => {
   switch (action.type) {
-    case GET_DEVICE_DATA:
+    case GET_RANKING_DATA:
       return {
         ...state,
         loading: true,
       };
-    case GET_DATA_SUCCESS:
-      const { data } = action.payload;
+    case GET_RANKING_SUCCESS:
+      const { data} = action.payload;
       return {
         ...state,
-        deviceData: { ...state.deviceData, ...data },
+        rankingData: [...data],
         loading: false,
         isError: false,
       };
-    case GET_DATA_ERROR:
+    case GET_RANKING_ERROR:
       return {
         ...state,
-        loading: false,
         isError: true,
       };
     default:
@@ -36,4 +35,4 @@ const reducer = (state = initState, action) => {
       };
   }
 };
-export default reducer;
+export default rankingReducer;

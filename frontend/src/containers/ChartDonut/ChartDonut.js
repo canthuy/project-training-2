@@ -3,19 +3,17 @@ import { Doughnut } from 'react-chartjs-2';
 import { useSelector, useDispatch } from 'react-redux';
 import { Fragment, useEffect } from 'react';
 import { getData } from '../../redux/doughnut/actions';
-import { ChartSC, Error } from './ChartDonut.styles';
+import { ChartSC } from './ChartDonut.styles';
 import Loading from '../../components/Loading/Loading';
+import Error from '../../components/Error/Error';
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
 const ChartDoughnut = () => {
-  const deviceData = useSelector((state) => state.deviceData);
-  const isError = useSelector((state) => state.isError);
-  const isLoading = useSelector((state) => state.loading);
+  const { deviceData, loading, isError } = useSelector((state) => state.device);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getData());
   }, []);
-
   const options = {
     plugins: {
       legend: {
@@ -39,7 +37,7 @@ const ChartDoughnut = () => {
           weight: 0,
         },
         padding: {
-          top: 50,
+          top: 20,
         },
       },
     },
@@ -67,9 +65,13 @@ const ChartDoughnut = () => {
   );
   return (
     <Fragment>
-      {isLoading && <Loading />}
-      {isError && <Error>Error: Network Error</Error>}
-      {!isError && !isLoading && displayChart}
+      {loading && (
+        <ChartSC>
+          <Loading />
+        </ChartSC>
+      )}
+      {isError && <Error message="Error: Network Error" />}
+      {!isError && !loading && displayChart}
     </Fragment>
   );
 };

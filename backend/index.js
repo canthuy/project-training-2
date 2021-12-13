@@ -18,6 +18,23 @@ const requestListener = function (req, res) {
         res.end(JSON.stringify({ iOS: 40, android: 60 }));
       }, 10000);
       break;
+    case "/ranking":
+      const data = [
+        { label: "Day 1", value: 15 },
+        { label: "Day 2", value: 4 },
+        { label: "Day 3", value: 10 },
+        { label: "Day 4", value: 5 },
+        { label: "Day 5", value: 8 },
+        { label: "Day 6", value: 10 },
+        { label: "Day 7", value: 12 },
+      ];
+      setTimeout(() => {
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(data));
+      }, 5000);
+      break;
     default:
       res.writeHead(404);
       res.end(JSON.stringify("Resource not found"));

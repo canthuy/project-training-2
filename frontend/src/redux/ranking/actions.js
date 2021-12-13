@@ -1,27 +1,25 @@
 import {
-  GET_DEVICE_DATA,
-  GET_DATA_SUCCESS,
-  GET_DATA_ERROR
+  GET_RANKING_DATA,
+  GET_RANKING_SUCCESS,
+  GET_RANKING_ERROR,
 } from './ActionType';
 
 const getData = (payload) => {
   return {
-    type: GET_DEVICE_DATA,
-    payload
+    type: GET_RANKING_DATA,
+    payload,
   };
 };
-
 const getDataSuccess = (payload) => {
   return {
-    type: GET_DATA_SUCCESS,
-    payload
+    type: GET_RANKING_SUCCESS,
+    payload,
   };
 };
-
 const getDataError = (payload) => {
   return {
-    type: GET_DATA_ERROR,
-    payload
+    type: GET_RANKING_ERROR,
+    payload,
   };
 };
 export { getData, getDataSuccess, getDataError };
