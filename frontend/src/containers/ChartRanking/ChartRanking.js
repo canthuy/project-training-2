@@ -13,13 +13,13 @@ import { Fragment, useEffect } from 'react';
 import { getData } from '../../redux/ranking/actions';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
-import {RankingSC} from './ChartRanking.styles';
+import { RankingSC } from './ChartRanking.styles';
 Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
 
 const ChartRanking = () => {
-  const rankingData = useSelector((state) => state.ranking.rankingData);
-  const loading = useSelector((state) => state.ranking.loading);
-  const isError = useSelector((state) => state.ranking.isError);
+  const { rankingData, loading, isError } = useSelector(
+    (state) => state.ranking
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -77,13 +77,19 @@ const ChartRanking = () => {
       },
     ],
   };
-  console.log('data ranking: ', rankingData);
   return (
     <Fragment>
-      {console.log(data)}
-      {isError && <Error message='Error: Network Error' />}
-      {loading && <RankingSC><Loading /></RankingSC>}
-      {!loading && !isError && <RankingSC><Bar data={data} options={options} /></RankingSC>}
+      {isError && <Error message="Error: Network Error" />}
+      {loading && (
+        <RankingSC>
+          <Loading />
+        </RankingSC>
+      )}
+      {!loading && !isError && (
+        <RankingSC>
+          <Bar data={data} options={options} />
+        </RankingSC>
+      )}
     </Fragment>
   );
 };

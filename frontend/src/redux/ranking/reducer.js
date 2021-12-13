@@ -2,7 +2,7 @@ import {
   GET_RANKING_DATA,
   GET_RANKING_SUCCESS,
   GET_RANKING_ERROR,
-} from '../../constants/ActionType';
+} from './ActionType';
 
 const initState = {
   rankingData: [],
@@ -18,7 +18,6 @@ const rankingReducer = (state = initState, action) => {
       };
     case GET_RANKING_SUCCESS:
       const { data} = action.payload;
-      console.log(data);
       return {
         ...state,
         rankingData: [...data],

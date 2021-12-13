@@ -9,9 +9,7 @@ import Error from '../../components/Error/Error';
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
 const ChartDoughnut = () => {
-  const deviceData = useSelector((state) => state.device.deviceData);
-  const isError = useSelector((state) => state.device.isError);
-  const isLoading = useSelector((state) => state.device.loading);
+  const { deviceData, loading, isError } = useSelector((state) => state.device);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getData());
@@ -67,13 +65,13 @@ const ChartDoughnut = () => {
   );
   return (
     <Fragment>
-      {isLoading && (
+      {loading && (
         <ChartSC>
           <Loading />
         </ChartSC>
       )}
       {isError && <Error message="Error: Network Error" />}
-      {!isError && !isLoading && displayChart}
+      {!isError && !loading && displayChart}
     </Fragment>
   );
 };

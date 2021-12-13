@@ -2,7 +2,7 @@ import {
   GET_DEVICE_DATA,
   GET_DATA_SUCCESS,
   GET_DATA_ERROR,
-} from '../../constants/ActionType';
+} from './ActionType';
 
 const initState = {
   deviceData: {},
@@ -27,8 +27,8 @@ const reducer = (state = initState, action) => {
     case GET_DATA_ERROR:
       return {
         ...state,
-        isError: true,
         loading: false,
+        isError: true,
       };
     default:
       return {
