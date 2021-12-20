@@ -1,4 +1,5 @@
 const http = require("http");
+var _ = require("lodash");
 const host = "localhost";
 const port = 3002;
 
@@ -33,6 +34,32 @@ const requestListener = function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
         res.end(JSON.stringify(data));
+      }, 5000);
+      break;
+    case "/heat_chart":
+      const dataHeat = _.map(
+        [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        (day) => ({
+          name: day,
+          data: _.map(_.range(0, 24), (time) => ({
+            x: `${time}:00`,
+            y: _.random(0, 2) !== 2 ? _.random(0, 30) : _.random(0, 50),
+          })),
+        })
+      );
+      setTimeout(() => {
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(dataHeat));
       }, 5000);
       break;
     default:
