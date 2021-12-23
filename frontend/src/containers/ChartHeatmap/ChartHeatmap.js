@@ -4,7 +4,14 @@ import { getData } from '../../redux/heatmap/actions';
 import Chart from 'react-apexcharts';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
-import { ChartHeatmapSC } from './ChartHeatmap.styles';
+import {
+  ChartSC,
+  Title,
+  ChartHeatmapSC,
+  BarChartSC,
+  ColorGradient,
+  NoteNumber,
+} from './ChartHeatmap.styles';
 
 const ChartHeatmap = () => {
   const { heatmapData, loading, isError } = useSelector(
@@ -15,6 +22,80 @@ const ChartHeatmap = () => {
     dispatch(getData());
   }, []);
 
+  const dataBarChart = heatmapData.map((value) => {
+    return value.data.reduce((sum, curentVal) => {
+      return sum + curentVal.y;
+    }, 0);
+  });
+  const maxValue = Math.max(...dataBarChart);
+  const optionsBar = {
+    chart: {
+      offsetX: -30,
+      toolbar: {
+        show: false,
+      },
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+        borderRadius: 7,
+        barHeight: '95%',
+      },
+    },
+    colors: '#35a596',
+    dataLabels: {
+      textAnchor: 'start',
+      style: {
+        fontWeight: 400,
+        fontSize: '15px',
+      },
+    },
+    yaxis: {
+      labels: {
+        show: false,
+      },
+    },
+    xaxis: {
+      axisTicks: {
+        show: false,
+      },
+      min: 0,
+      max: maxValue,
+      categories: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ].reverse(),
+      labels: {
+        show: true,
+        hideOverlappingLabels: true,
+        formatter: (value) => {
+          if (value.toFixed(0) < maxValue) {
+            return value > 0 ? '' : 0;
+          } else {
+            return value.toFixed(0);
+          }
+        },
+        style: {
+          fontSize: '14px',
+        },
+      },
+    },
+
+    grid: {
+      show: false,
+    },
+  };
+
+  const seriesBar = [
+    {
+      data: dataBarChart.reverse(),
+    },
+  ];
   const options = {
     chart: {
       toolbar: {
@@ -24,16 +105,8 @@ const ChartHeatmap = () => {
     dataLabels: {
       enabled: false,
     },
-    
+
     colors: ['#8f6cc8'],
-    title: {
-      text: 'Device By Hour',
-      margin: 0,
-      style: {
-        fontSize: '18px',
-        fontWeight: 500,
-      },
-    },
     xaxis: {
       labels: {
         formatter: (value) => {
@@ -47,9 +120,10 @@ const ChartHeatmap = () => {
     yaxis: {
       opposite: true,
       labels: {
-        align: 'left',
+        align: 'center',
+        offsetX: 5,
         formatter: (value) => {
-          return value;
+          return value.toString().substring(0, 3);
         },
         style: {
           fontSize: '14px',
@@ -61,24 +135,46 @@ const ChartHeatmap = () => {
   return (
     <Fragment>
       {loading && (
-        <ChartHeatmapSC>
+        <ChartSC>
           <Loading />
-        </ChartHeatmapSC>
+        </ChartSC>
       )}
       {isError && (
-        <ChartHeatmapSC>
+        <ChartSC>
           <Error message="Error: Network Error" />
-        </ChartHeatmapSC>
+        </ChartSC>
       )}
       {!isError && !loading && (
-        <ChartHeatmapSC>
-          <Chart
-            options={options}
-            series={heatmapData}
-            type="heatmap"
-            height={350}
-          />
-        </ChartHeatmapSC>
+        <Fragment>
+          <Title>Device By Hour</Title>
+          <ChartSC>
+            <ChartHeatmapSC>
+              <Chart
+                options={options}
+                series={heatmapData}
+                type="heatmap"
+                height={350}
+              />
+            </ChartHeatmapSC>
+            <BarChartSC>
+              <Chart
+                options={optionsBar}
+                series={seriesBar}
+                type="bar"
+                height={350}
+              />
+            </BarChartSC>
+            <ColorGradient />
+            <NoteNumber>
+              <span>0</span>
+              <span>10</span>
+              <span>20</span>
+              <span>30</span>
+              <span>40</span>
+              <span>50</span>
+            </NoteNumber>
+          </ChartSC>
+        </Fragment>
       )}
     </Fragment>
   );
