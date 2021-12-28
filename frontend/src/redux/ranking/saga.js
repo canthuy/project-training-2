@@ -2,9 +2,9 @@ import { put, call, takeLatest } from 'redux-saga/effects';
 import { getRankingData } from './api';
 import { getDataSuccess, getDataError } from './actions';
 
-function* getRanking() {
+function* getRanking(action) {
   try {
-    const data = yield call(getRankingData);
+    const data = yield call(getRankingData, ...action.payload);
     yield put(getDataSuccess(data));
   } catch (e) {
     yield put(getDataError());

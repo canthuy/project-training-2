@@ -17,10 +17,11 @@ const ChartHeatmap = () => {
   const { heatmapData, loading, isError } = useSelector(
     (state) => state.heatChart
   );
+  const { startDate, endDate } = useSelector((state) => state.datepicker);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getData());
-  }, []);
+    dispatch(getData([startDate, endDate]));
+  }, [startDate, endDate]);
 
   const dataBarChart = heatmapData.map((value) => {
     return value.data.reduce((sum, curentVal) => {

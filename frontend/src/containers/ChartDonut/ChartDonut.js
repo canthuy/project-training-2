@@ -10,10 +10,11 @@ Chart.register(ArcElement, Tooltip, Legend, Title);
 
 const ChartDoughnut = () => {
   const { deviceData, loading, isError } = useSelector((state) => state.device);
+  const {startDate, endDate} = useSelector(state=>state.datepicker);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getData());
-  }, []);
+    dispatch(getData([startDate, endDate]));
+  }, [startDate, endDate]);
   const options = {
     plugins: {
       legend: {

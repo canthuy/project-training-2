@@ -28,6 +28,7 @@ const rankingReducer = (state = initState, action) => {
       return {
         ...state,
         isError: true,
+        loading: false,
       };
     default:
       return {
