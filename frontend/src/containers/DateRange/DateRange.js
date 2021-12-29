@@ -14,7 +14,6 @@ const DateRange = () => {
   const { startDate, endDate } = useSelector((state) => state.datepicker);
   const [dateRange, setDateRange] = useState([null, null]);
   const [newStartDate, newEndDate] = dateRange;
-  console.log('startDate', startDate, 'endDate: ', endDate);
   const handleClick = () => {
     if (
       newStartDate !== null &&
