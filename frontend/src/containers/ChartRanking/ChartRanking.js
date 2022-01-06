@@ -20,11 +20,12 @@ const ChartRanking = () => {
   const { rankingData, loading, isError } = useSelector(
     (state) => state.ranking
   );
+  const {startDate, endDate} = useSelector(state => state.datepicker);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getData());
-  }, []);
+    dispatch(getData([startDate, endDate]));
+  }, [startDate, endDate]);
   const options = {
     indexAxis: 'y',
     scales: {

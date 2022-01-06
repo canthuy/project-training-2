@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const getHeatChartData = () => {
-  return axios.get('http://localhost:3002/heat_chart');
+const getHeatChartData = (startDate, endDate) => {
+  return axios.get('http://localhost:3002/heat_chart', {
+    params: { startDate, endDate },
+  });
 };
 export { getHeatChartData };
