@@ -51,14 +51,10 @@ const ChartDoughnut = () => {
     cutout: '75%',
   };
   const data = {
-    labels: deviceData.map((val) => {
-      return val.x;
-    }),
+    labels: deviceData.map((val) => val.x),
     datasets: [
       {
-        data: deviceData.map((val) => {
-          return val.y;
-        }),
+        data: deviceData.map((val) => val.y),
         backgroundColor: [
           '#48c0b0',
           '#925de2',

@@ -9,14 +9,8 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import './ModalLabel.css';
 
 const ModalLabel = () => {
-  const [listLabel, setListLabel] = useState([
-    'Android',
-    'iOS',
-    'Windows',
-    'Os X',
-    'Unknown',
-    'Linux',
-  ]);
+  const listDevices = ['Android', 'iOS', 'Windows', 'Os X', 'Unknown', 'Linux'];
+  const [listLabel, setListLabel] = useState(listDevices);
   const [show, setShow] = useState(false);
   const deviceData = useSelector((state) => state.device.deviceData);
   const { startDate, endDate } = useSelector((state) => state.datepicker);
@@ -56,7 +50,7 @@ const ModalLabel = () => {
         return prev.filter((val) => val.toLowerCase().includes(keyFilter));
       });
     } else {
-      setListLabel(['Android', 'iOS', 'Windows', 'Os X', 'Unknown', 'Linux']);
+      setListLabel(listDevices);
     }
   };
   return (
@@ -80,10 +74,8 @@ const ModalLabel = () => {
                 onClick={() => onClickLabel(val)}
               >
                 <span>{val}</span>
-                {listChecked.includes(val) ? (
+                {listChecked.includes(val) && (
                   <FontAwesomeIcon icon={faCheck} />
-                ) : (
-                  ''
                 )}
               </div>
             );
