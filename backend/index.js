@@ -6,12 +6,23 @@ const port = 3002;
 
 app.use(cors());
 app.get("/device_summary", (req, res) => {
-  const {startDate, endDate} = req.query;
-  const iOSData = _.random(0,50);
-  const data = startDate && endDate ? {iOS: iOSData, android: 100-iOSData}: { iOS: 40, android: 60 };
+  const { device_types } = req.query;
+  const data = [
+    { x: "Android", y: _.random(0, 100) },
+    { x: "Windows", y: _.random(0, 100) },
+    { x: "iOS", y: _.random(0, 100) },
+    { x: "Os X", y: _.random(0, 100) },
+    { x: "Unknown", y: _.random(0, 100) },
+    { x: "Linux", y: _.random(0, 100) },
+  ];
+  const dataRes = device_types
+    ? data.map((val) => {
+        return device_types.includes(val.x) ? val : '';
+      })
+    : data;
   setTimeout(() => {
-    res.send(data);
-  }, 10000);
+    res.send(dataRes.filter((val) => val !== ''));
+  }, 1000);
 });
 app.get("/ranking", (req, res) => {
   const {startDate, endDate} = req.query;

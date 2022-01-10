@@ -6,11 +6,12 @@ import { getData } from '../../redux/doughnut/actions';
 import { ChartSC } from './ChartDonut.styles';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
+import ModalLabel from './ModalLabel';
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
 const ChartDoughnut = () => {
   const { deviceData, loading, isError } = useSelector((state) => state.device);
-  const {startDate, endDate} = useSelector(state=>state.datepicker);
+  const { startDate, endDate } = useSelector((state) => state.datepicker);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getData([startDate, endDate]));
@@ -23,7 +24,7 @@ const ChartDoughnut = () => {
         labels: {
           boxWidth: 15,
           boxHeight: 10,
-          padding: 40,
+          padding: 20,
           font: {
             size: 16,
           },
@@ -50,17 +51,36 @@ const ChartDoughnut = () => {
     cutout: '75%',
   };
   const data = {
-    labels: ['Android', 'iOS'],
+    labels: deviceData.map((val) => {
+      return val.x;
+    }),
     datasets: [
       {
-        data: [deviceData.android, deviceData.iOS],
-        backgroundColor: ['#48c0b0', '#925de2'],
-        hoverBackgroundColor: ['#48c0b0', '#925de2'],
+        data: deviceData.map((val) => {
+          return val.y;
+        }),
+        backgroundColor: [
+          '#48c0b0',
+          '#925de2',
+          '#36a2eb',
+          '#c9cbcf',
+          '#ffcd56',
+          '#f77b00',
+        ],
+        hoverBackgroundColor: [
+          '#48c0b0',
+          '#925de2',
+          '#36a2eb',
+          '#c9cbcf',
+          '#ffcd56',
+          '#f77b00',
+        ],
       },
     ],
   };
   const displayChart = (
     <ChartSC>
+      <ModalLabel />
       <Doughnut data={data} options={options} />
     </ChartSC>
   );

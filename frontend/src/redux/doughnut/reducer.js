@@ -5,7 +5,7 @@ import {
 } from './ActionType';
 
 const initState = {
-  deviceData: {},
+  deviceData: [],
   loading: false,
   isError: false,
 };
@@ -20,7 +20,7 @@ const reducer = (state = initState, action) => {
       const { data } = action.payload;
       return {
         ...state,
-        deviceData: { ...state.deviceData, ...data },
+        deviceData: [ ...data ],
         loading: false,
         isError: false,
       };
