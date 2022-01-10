@@ -14,7 +14,7 @@ const ChartDoughnut = () => {
   const { startDate, endDate } = useSelector((state) => state.datepicker);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getData([startDate, endDate]));
+    dispatch(getData([startDate, endDate, deviceData.map((val) => val.x)]));
   }, [startDate, endDate]);
   const options = {
     plugins: {
