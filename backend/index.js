@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const express = require("express");
 const cors = require("cors");
+const moment = require("moment");
 const app = express();
 const port = 3002;
 
@@ -17,23 +18,23 @@ app.get("/device_summary", (req, res) => {
   ];
   const dataRes = device_types
     ? data.map((val) => {
-        return device_types.includes(val.x) ? val : '';
+        return device_types.includes(val.x) ? val : "";
       })
     : data;
   setTimeout(() => {
-    res.send(dataRes.filter((val) => val !== ''));
+    res.send(dataRes.filter((val) => val !== ""));
   }, 1000);
 });
 app.get("/ranking", (req, res) => {
-  const {startDate, endDate} = req.query;
+  const { startDate, endDate } = req.query;
   const data = [
-    { label: "Day 1", value: startDate && endDate? _.random(0,20):15 },
-    { label: "Day 2", value: startDate && endDate? _.random(0,20):4 },
-    { label: "Day 3", value: startDate && endDate? _.random(0,20):10 },
-    { label: "Day 4", value: startDate && endDate? _.random(0,20):5 },
-    { label: "Day 5", value: startDate && endDate? _.random(0,20):8 },
-    { label: "Day 6", value: startDate && endDate? _.random(0,20):10 },
-    { label: "Day 7", value: startDate && endDate? _.random(0,20):12 },
+    { label: "Day 1", value: startDate && endDate ? _.random(0, 20) : 15 },
+    { label: "Day 2", value: startDate && endDate ? _.random(0, 20) : 4 },
+    { label: "Day 3", value: startDate && endDate ? _.random(0, 20) : 10 },
+    { label: "Day 4", value: startDate && endDate ? _.random(0, 20) : 5 },
+    { label: "Day 5", value: startDate && endDate ? _.random(0, 20) : 8 },
+    { label: "Day 6", value: startDate && endDate ? _.random(0, 20) : 10 },
+    { label: "Day 7", value: startDate && endDate ? _.random(0, 20) : 12 },
   ];
   setTimeout(() => {
     res.send(data);
@@ -61,6 +62,38 @@ app.get("/heat_chart", (req, res) => {
   setTimeout(() => {
     res.send(dataHeat);
   }, 5000);
+});
+app.get("/device_by_day", (req, res) => {
+  const { startDate, endDate } = req.query;
+  const dataLineChart = _.map(["Android", "iOS"], (device) => {
+    if (startDate && endDate) {
+      const data = [];
+      let date = startDate;
+      while (date !== endDate) {
+        data.push({ x: date, y: _.random(0, 20) });
+        date = moment(date, "DD/MM/YYYY").add(1, "days").format("DD/MM/YYYY");
+      }
+      data.push({ x: date, y: _.random(0, 20) });
+      return {
+        name: device,
+        data,
+      };
+    } else {
+      const today = new Date();
+      const month = moment(today).subtract(1, "months").format("MM/YYYY");
+      const daysInMonth = moment(month, "MM/YYYY").daysInMonth();
+      return {
+        name: device,
+        data: _.map(_.range(0, daysInMonth), (day) => ({
+          x: `${day + 1}/${month}`,
+          y: _.random(0, 20),
+        })),
+      };
+    }
+  });
+  setTimeout(() => {
+    res.send(dataLineChart);
+  }, 700);
 });
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}\n`);
