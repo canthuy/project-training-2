@@ -1,0 +1,12 @@
+.data-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.data-group span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  margin: 0 10px;
+}
