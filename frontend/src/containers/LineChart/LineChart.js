@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import Chart from 'react-apexcharts';
-import moment from 'moment';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import { ChartSC, Title } from './LineChart.styles';
@@ -69,33 +68,11 @@ const LineChart = () => {
         setSeries(deviceData);
       }
       if (index === 1) {
-        const newSeries = deviceData.map((device) => {
-          const weekData = device.data.map((day) => {
-            return {
-              x: moment(day.x, 'DD/MM/YYYY').format('WW'),
-              y: day.y,
-            };
-          });
-          const newData = handleData(weekData);
-          return {
-            name: device.name,
-            data: newData,
-          };
-        });
+        const newSeries = handleData(deviceData, 'WW');
         setSeries(newSeries);
       }
       if (index === 2) {
-        const newSeries = deviceData.map((device) => {
-          const monthData = device.data.map((day) => ({
-            x: moment(day.x, 'DD/MM/YYYY').format('MM/YYYY'),
-            y: day.y,
-          }));
-          const newData = handleData(monthData);
-          return {
-            name: device.name,
-            data: newData,
-          };
-        });
+        const newSeries = handleData(deviceData, 'MM/YYYY');
         setSeries(newSeries);
       }
     },
