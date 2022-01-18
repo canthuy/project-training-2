@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import Chart from 'react-apexcharts';
 import moment from 'moment';
 import Loading from '../../components/Loading/Loading';
@@ -25,9 +25,13 @@ const LineChart = () => {
     setSeries(deviceData);
     setIsActive(0);
   }, [deviceData]);
-  const totalData = deviceData.map((val) =>
-    val.data.reduce((acc, val) => acc + val.y, 0)
-  );
+  const totalData = useMemo(() => {
+    const total = deviceData.map((val) => {
+      console.log('tinh lai');
+      return val.data.reduce((acc, val) => acc + val.y, 0);
+    });
+    return total;
+  }, [deviceData]);
   const options = {
     chart: {
       toolbar: {
@@ -57,60 +61,63 @@ const LineChart = () => {
     },
     colors: ['#925de2', '#48c0b0'],
   };
-  const handleClick = (index) => {
-    setIsActive(index);
-    if (index === 0) {
-      setSeries(deviceData);
-    }
-    if (index === 1) {
-      const newSeries = deviceData.map((val) => {
-        const weekData = val.data.map((v) => {
+  const handleClick = useCallback(
+    (index) => {
+      setIsActive(index);
+      if (index === 0) {
+        setSeries(deviceData);
+      }
+      if (index === 1) {
+        const newSeries = deviceData.map((device) => {
+          const weekData = device.data.map((day) => {
+            return {
+              x: moment(day.x, 'DD/MM/YYYY').format('WW'),
+              y: day.y,
+            };
+          });
+          let obj = {};
+          const newData = weekData.reduce((totalY, day) => {
+            if (!obj[day.x]) {
+              obj[day.x] = day;
+              totalY.push(obj[day.x]);
+            } else {
+              obj[day.x].y += day.y;
+            }
+            return totalY;
+          }, []);
           return {
-            x: moment(v.x, 'DD/MM/YYYY').format('WW'),
-            y: v.y,
+            name: device.name,
+            data: newData,
           };
         });
-        let obj = {};
-        const newData = weekData.reduce((acc, val) => {
-          if (!obj[val.x]) {
-            obj[val.x] = val;
-            acc.push(obj[val.x]);
-          } else {
-            obj[val.x].y += val.y;
-          }
-          return acc;
-        }, []);
-        return {
-          name: val.name,
-          data: newData,
-        };
-      });
-      setSeries(newSeries);
-    }
-    if (index === 2) {
-      const newSeries = deviceData.map((val) => {
-        const monthData = val.data.map((v) => ({
-          x: moment(v.x, 'DD/MM/YYYY').format('MM/YYYY'),
-          y: v.y,
-        }));
-        let obj = {};
-        const newData = monthData.reduce((acc, val) => {
-          if (!obj[val.x]) {
-            obj[val.x] = val;
-            acc.push(obj[val.x]);
-          } else {
-            obj[val.x].y += val.y;
-          }
-          return acc;
-        }, []);
-        return {
-          name: val.name,
-          data: newData,
-        };
-      });
-      setSeries(newSeries);
-    }
-  };
+        setSeries(newSeries);
+      }
+      if (index === 2) {
+        const newSeries = deviceData.map((device) => {
+          const monthData = device.data.map((day) => ({
+            x: moment(day.x, 'DD/MM/YYYY').format('MM/YYYY'),
+            y: day.y,
+          }));
+          let obj = {};
+          const newData = monthData.reduce((totalY, day) => {
+            if (!obj[day.x]) {
+              obj[day.x] = day;
+              totalY.push(obj[day.x]);
+            } else {
+              obj[day.x].y += day.y;
+            }
+            return totalY;
+          }, []);
+          return {
+            name: device.name,
+            data: newData,
+          };
+        });
+        setSeries(newSeries);
+      }
+    },
+    [deviceData]
+  );
   return (
     <>
       <ChartSC>

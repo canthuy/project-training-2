@@ -23,7 +23,7 @@ app.get("/device_summary", (req, res) => {
     : data;
   setTimeout(() => {
     res.send(dataRes.filter((val) => val !== ""));
-  }, 1000);
+  }, 10000);
 });
 app.get("/ranking", (req, res) => {
   const { startDate, endDate } = req.query;
@@ -93,7 +93,7 @@ app.get("/device_by_day", (req, res) => {
   });
   setTimeout(() => {
     res.send(dataLineChart);
-  }, 700);
+  }, 7000);
 });
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}\n`);
