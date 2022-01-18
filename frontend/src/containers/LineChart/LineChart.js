@@ -6,6 +6,7 @@ import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import { ChartSC, Title } from './LineChart.styles';
 import { getData } from '../../redux/lineChart/actions';
+import { handleData } from './helper';
 import './LineChart.css';
 
 const LineChart = () => {
@@ -75,16 +76,7 @@ const LineChart = () => {
               y: day.y,
             };
           });
-          let obj = {};
-          const newData = weekData.reduce((totalY, day) => {
-            if (!obj[day.x]) {
-              obj[day.x] = day;
-              totalY.push(obj[day.x]);
-            } else {
-              obj[day.x].y += day.y;
-            }
-            return totalY;
-          }, []);
+          const newData = handleData(weekData);
           return {
             name: device.name,
             data: newData,
@@ -98,16 +90,7 @@ const LineChart = () => {
             x: moment(day.x, 'DD/MM/YYYY').format('MM/YYYY'),
             y: day.y,
           }));
-          let obj = {};
-          const newData = monthData.reduce((totalY, day) => {
-            if (!obj[day.x]) {
-              obj[day.x] = day;
-              totalY.push(obj[day.x]);
-            } else {
-              obj[day.x].y += day.y;
-            }
-            return totalY;
-          }, []);
+          const newData = handleData(monthData);
           return {
             name: device.name,
             data: newData,
