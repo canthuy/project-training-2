@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
-import ChartHeatmap from '../containers/ChartHeatmap/ChartHeatmap';
+import LineChart from '../LineChart';
 window.React = React;
 
 jest.mock('react-redux', () => ({
@@ -9,8 +9,8 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
   useDispatch: jest.fn(),
 }));
-
-describe('ChartHeatmap component', () => {
+jest.mock('react-apexcharts', () => 'Chart');
+describe('LineChart component', () => {
   let mockState = {};
   beforeEach(() => {
     useDispatch.mockImplementation(() => () => {});
@@ -24,8 +24,8 @@ describe('ChartHeatmap component', () => {
   });
   it('loading data', () => {
     mockState = {
-      heatChart: {
-        heatmapData: [],
+      lineChart: {
+        deviceData: [],
         loading: true,
         isError: false,
       },
@@ -34,29 +34,29 @@ describe('ChartHeatmap component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<ChartHeatmap />);
+    const { container } = render(<LineChart />);
     const elements = container.querySelector('div').firstChild;
     expect(container).toMatchSnapshot();
     expect(elements.firstChild.className).toEqual('spinner-border');
   });
   it('get data success', () => {
     mockState = {
-      heatChart: {
-        heatmapData: [
+      lineChart: {
+        deviceData: [
           {
-            name: 'Monday',
+            name: 'Android',
             data: [
-              { x: '1:00', y: 4 },
-              { x: '2:00', y: 3 },
-              { x: '3:00', y: 5 },
+              { x: '01/01/2021', y: 4 },
+              { x: '02/01/2021', y: 3 },
+              { x: '03/01/2021', y: 5 },
             ],
           },
           {
-            name: 'Tuesday',
+            name: 'iOS',
             data: [
-              { x: '1:00', y: 1 },
-              { x: '2:00', y: 6 },
-              { x: '3:00', y: 4 },
+              { x: '01/01/2021', y: 1 },
+              { x: '02/01/2021', y: 6 },
+              { x: '03/01/2021', y: 4 },
             ],
           },
         ],
@@ -68,14 +68,14 @@ describe('ChartHeatmap component', () => {
         endDate: '01/02/2021',
       },
     };
-    const  {container}  = render(<ChartHeatmap />);
+    const { container } = render(<LineChart />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText('Device By Hour')).toBeTruthy();
+    expect(screen.getByText(/Device/i)).toBeTruthy();
   });
   it('get data error', () => {
     mockState = {
-      heatChart: {
-        heatmapData: [],
+      lineChart: {
+        deviceData: [],
         loading: false,
         isError: true,
       },
@@ -84,9 +84,8 @@ describe('ChartHeatmap component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<ChartHeatmap />);
+    const { container } = render(<LineChart />);
     expect(container).toMatchSnapshot();
     expect(screen.getByText('Error: Network Error')).toBeTruthy();
   });
-  
 });

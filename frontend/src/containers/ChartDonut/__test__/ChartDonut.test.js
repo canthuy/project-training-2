@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
-import ChartDonut from '../containers/ChartDonut/ChartDonut';
+import ChartDonut from '../ChartDonut';
 window.React = React;
 
 jest.mock('react-redux', () => ({

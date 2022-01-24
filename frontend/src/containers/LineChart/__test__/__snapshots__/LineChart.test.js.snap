@@ -29,28 +29,30 @@ exports[`LineChart component get data success 1`] = `
       </h5>
       <div>
         <span
+          data-testid="Day"
           style="opacity: 1;"
         >
           Day
         </span>
         <span
+          data-testid="Week"
           style="opacity: 0.3;"
         >
           Week
         </span>
         <span
+          data-testid="Month"
           style="opacity: 0.3;"
         >
           Month
         </span>
       </div>
     </div>
-    <div
+    <chart
       height="404"
       options="[object Object]"
       series="[object Object],[object Object]"
       type="line"
-      width="100%"
     />
   </div>
 </div>

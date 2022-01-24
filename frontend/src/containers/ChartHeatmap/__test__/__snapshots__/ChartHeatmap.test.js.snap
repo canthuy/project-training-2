@@ -27,23 +27,21 @@ exports[`ChartHeatmap component get data success 1`] = `
     <div
       class="sc-eCImPb kzSnaY"
     >
-      <div
+      <chart
         height="350"
         options="[object Object]"
         series="[object Object],[object Object]"
         type="heatmap"
-        width="100%"
       />
     </div>
     <div
       class="sc-jRQBWg hDopDm"
     >
-      <div
+      <chart
         height="350"
         options="[object Object]"
         series="[object Object]"
         type="bar"
-        width="100%"
       />
     </div>
     <div

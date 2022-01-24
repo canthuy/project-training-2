@@ -92,6 +92,7 @@ const LineChart = () => {
                     <span
                       key={index}
                       style={{ opacity: isActive === index ? 1 : 0.3 }}
+                      data-testid = {val}
                       onClick={() => handleClick(index)}
                     >
                       {val}

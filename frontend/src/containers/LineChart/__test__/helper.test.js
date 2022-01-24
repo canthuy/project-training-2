@@ -1,4 +1,4 @@
-import { handleData } from '../containers/LineChart/helper';
+import { handleData } from '../helper';
 it('LineChart/helper', () => {
   const deviceData = [
     {

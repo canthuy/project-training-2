@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
-import ModalLabel from '../containers/ChartDonut/ModalLabel';
+import ModalLabel from '../ModalLabel';
 window.React = React;
 
 jest.mock('react-redux', () => ({
