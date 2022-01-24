@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalLabel component Show modal label 1`] = `
+<div>
+  <button
+    class="btn-labels btn btn-primary btn-sm"
+    type="button"
+  >
+    Labels
+  </button>
+</div>
+`;

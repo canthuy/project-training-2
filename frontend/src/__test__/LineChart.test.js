@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
-import ChartRanking from '../containers/ChartRanking/ChartRanking';
+import LineChart from '../containers/LineChart/LineChart';
 window.React = React;
 
 jest.mock('react-redux', () => ({
@@ -10,22 +10,22 @@ jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
 }));
 
-describe('ChartRanking Component', () => {
-  let mockAppState = {};
+describe('LineChart component', () => {
+  let mockState = {};
   beforeEach(() => {
     useDispatch.mockImplementation(() => () => {});
     useSelector.mockImplementation((callback) => {
-      return callback(mockAppState);
+      return callback(mockState);
     });
   });
   afterEach(() => {
     useSelector.mockClear();
     useDispatch.mockClear();
   });
-  it('Loading data', () => {
-    mockAppState = {
-      ranking: {
-        rankingData: [],
+  it('loading data', () => {
+    mockState = {
+      lineChart: {
+        deviceData: [],
         loading: true,
         isError: false,
       },
@@ -34,18 +34,31 @@ describe('ChartRanking Component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<ChartRanking />);
+    const { container } = render(<LineChart />);
+    const elements = container.querySelector('div').firstChild;
     expect(container).toMatchSnapshot();
-    const element = container.querySelector('div').firstChild;
-    expect(element.firstChild.className).toEqual('spinner-border');
+    expect(elements.firstChild.className).toEqual('spinner-border');
   });
   it('get data success', () => {
-    mockAppState = {
-      ranking: {
-        rankingData: [
-          { label: 'Day 1', value: 10 },
-          { label: 'Day 2', value: 4 },
-          { label: 'Day 3', value: 3 },
+    mockState = {
+      lineChart: {
+        deviceData: [
+          {
+            name: 'Android',
+            data: [
+              { x: '01/01/2021', y: 4 },
+              { x: '02/01/2021', y: 3 },
+              { x: '03/01/2021', y: 5 },
+            ],
+          },
+          {
+            name: 'iOS',
+            data: [
+              { x: '01/01/2021', y: 1 },
+              { x: '02/01/2021', y: 6 },
+              { x: '03/01/2021', y: 4 },
+            ],
+          },
         ],
         loading: false,
         isError: false,
@@ -55,15 +68,14 @@ describe('ChartRanking Component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<ChartRanking />);
+    const { container } = render(<LineChart />);
     expect(container).toMatchSnapshot();
-    expect(container.querySelector('canvas')).toBeTruthy();
+    expect(screen.getByText(/Device/i)).toBeTruthy();
   });
-
   it('get data error', () => {
-    mockAppState = {
-      ranking: {
-        rankingData: [],
+    mockState = {
+      lineChart: {
+        deviceData: [],
         loading: false,
         isError: true,
       },
@@ -72,7 +84,7 @@ describe('ChartRanking Component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<ChartRanking />);
+    const { container } = render(<LineChart />);
     expect(container).toMatchSnapshot();
     expect(screen.getByText('Error: Network Error')).toBeTruthy();
   });

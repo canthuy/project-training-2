@@ -26,10 +26,9 @@ const LineChart = () => {
     setIsActive(0);
   }, [deviceData]);
   const totalData = useMemo(() => {
-    const total = deviceData.map((val) => {
-      console.log('tinh lai');
-      return val.data.reduce((acc, val) => acc + val.y, 0);
-    });
+    const total = deviceData.map((val) =>
+      val.data.reduce((acc, val) => acc + val.y, 0)
+    );
     return total;
   }, [deviceData]);
   const options = {

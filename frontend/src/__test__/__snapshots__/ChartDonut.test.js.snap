@@ -13,8 +13,14 @@ exports[`ChartDonut Component get data error 1`] = `
 exports[`ChartDonut Component get data success 1`] = `
 <div>
   <div
-    class="sc-bdvvtL cfVjDS"
+    class="sc-bdvvtL dCkjDj"
   >
+    <button
+      class="btn-labels btn btn-primary btn-sm"
+      type="button"
+    >
+      Labels
+    </button>
     <canvas
       height="150"
       role="img"
@@ -27,7 +33,7 @@ exports[`ChartDonut Component get data success 1`] = `
 exports[`ChartDonut Component loading data 1`] = `
 <div>
   <div
-    class="sc-bdvvtL cfVjDS"
+    class="sc-bdvvtL dCkjDj"
   >
     <div
       class="sc-gsDKAQ giLnYi"
