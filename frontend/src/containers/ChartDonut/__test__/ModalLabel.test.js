@@ -25,8 +25,8 @@ describe('ModalLabel component', () => {
       isError: false,
     },
     datepicker: {
-      startDate: '01/01/2021',
-      endDate: '01/02/2021',
+      startDate: '',
+      endDate: '',
     },
   };
   const mockDispatch = jest.fn();
@@ -49,7 +49,7 @@ describe('ModalLabel component', () => {
     expect(screen.getByText('Android')).toBeTruthy();
     expect(screen.getByText('Labels')).toBeTruthy();
   });
-  it('Click label', ()=>{
+  it('Click label', () => {
     render(<ModalLabel />);
     const buttonLabel = screen.getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
@@ -59,24 +59,47 @@ describe('ModalLabel component', () => {
     fireEvent.click(label);
     expect(screen.queryAllByTestId('test-svg')).toHaveLength(6);
   });
-  it('Hide modal label and dispatch label', ()=>{
+  it('Hide modal label and do not change labels', () => {
+    render(<ModalLabel />);
+    const buttonLabel = screen.getByRole('button', { name: /Labels/i });
+    fireEvent.click(buttonLabel);
+    fireEvent.click(document.querySelector('.modal-backdrop'));
+    expect(mockDispatch).not.toHaveBeenCalled();
+  });
+  it('Hide modal label and dispatch label', () => {
     render(<ModalLabel />);
     const buttonLabel = screen.getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
     expect(screen.queryAllByTestId('test-svg')).toHaveLength(6);
+    fireEvent.click(screen.getByText('Android'));
+    fireEvent.click(screen.getByText('iOS'));
     fireEvent.click(document.querySelector('.modal-backdrop'));
-    expect(document.querySelector('.show')).not.toBeTruthy();
+    expect(mockDispatch).toHaveBeenCalled();
   });
-  it('Filter input', ()=>{
+  it('hide modal and no device type selected', () => {
+    global.alert = jest.fn();
+    render(<ModalLabel />);
+    const buttonLabel = screen.getByRole('button', { name: /Labels/i });
+    fireEvent.click(buttonLabel);
+    fireEvent.click(screen.getByText('Android'));
+    fireEvent.click(screen.getByText('iOS'));
+    fireEvent.click(screen.getByText('Linux'));
+    fireEvent.click(screen.getByText('Windows'));
+    fireEvent.click(screen.getByText('Os X'));
+    fireEvent.click(screen.getByText('Unknown'));
+    fireEvent.click(document.querySelector('.modal-backdrop'));
+    expect(global.alert).toHaveBeenCalled();
+  });
+  it('Filter input', () => {
     render(<ModalLabel />);
     const buttonLabel = screen.getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
     const inputFilter = screen.getByRole('textbox');
-    fireEvent.change(inputFilter, {target: {value: 'android'}});
+    fireEvent.change(inputFilter, { target: { value: 'android' } });
     expect(inputFilter.value).toEqual('android');
     expect(screen.queryByText('iOS')).not.toBeTruthy();
 
-    fireEvent.change(inputFilter, {target: {value: ''}});
+    fireEvent.change(inputFilter, { target: { value: '' } });
     expect(screen.queryByText('iOS')).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import LineChart from '../LineChart';
 window.React = React;
@@ -71,6 +71,117 @@ describe('LineChart component', () => {
     const { container } = render(<LineChart />);
     expect(container).toMatchSnapshot();
     expect(screen.getByText(/Device/i)).toBeTruthy();
+  });
+  it('get data success and group by day', () => {
+    mockState = {
+      lineChart: {
+        deviceData: [
+          {
+            name: 'Android',
+            data: [
+              { x: '01/01/2021', y: 5 },
+              { x: '02/01/2021', y: 10 },
+              { x: '03/01/2021', y: 5 },
+              { x: '01/02/2021', y: 4 },
+              { x: '02/02/2021', y: 6 },
+            ],
+          },
+          {
+            name: 'iOS',
+            data: [
+              { x: '01/01/2021', y: 2 },
+              { x: '02/01/2021', y: 3 },
+              { x: '03/01/2021', y: 5 },
+              { x: '01/02/2021', y: 10 },
+              { x: '02/02/2021', y: 5 },
+            ],
+          },
+        ],
+        loading: false,
+        isError: false,
+      },
+      datepicker: {
+        startDate: '',
+        endDate: '',
+      },
+    };
+    const { container } = render(<LineChart />);
+    fireEvent.click(screen.getByTestId('Day'));
+    expect(container).toMatchSnapshot();
+  });
+  it('get data success and group by week', () => {
+    mockState = {
+      lineChart: {
+        deviceData: [
+          {
+            name: 'Android',
+            data: [
+              { x: '01/01/2021', y: 5 },
+              { x: '02/01/2021', y: 10 },
+              { x: '03/01/2021', y: 5 },
+              { x: '01/02/2021', y: 4 },
+              { x: '02/02/2021', y: 6 },
+            ],
+          },
+          {
+            name: 'iOS',
+            data: [
+              { x: '01/01/2021', y: 2 },
+              { x: '02/01/2021', y: 3 },
+              { x: '03/01/2021', y: 5 },
+              { x: '01/02/2021', y: 10 },
+              { x: '02/02/2021', y: 5 },
+            ],
+          },
+        ],
+        loading: false,
+        isError: false,
+      },
+      datepicker: {
+        startDate: '',
+        endDate: '',
+      },
+    };
+    const { container } = render(<LineChart />);
+    fireEvent.click(screen.getByTestId('Week'));
+    expect(container).toMatchSnapshot();
+  });
+  it('get data success and group by month', () => {
+    mockState = {
+      lineChart: {
+        deviceData: [
+          {
+            name: 'Android',
+            data: [
+              { x: '01/01/2021', y: 5 },
+              { x: '02/01/2021', y: 10 },
+              { x: '03/01/2021', y: 5 },
+              { x: '01/02/2021', y: 4 },
+              { x: '02/02/2021', y: 6 },
+            ],
+          },
+          {
+            name: 'iOS',
+            data: [
+              { x: '01/01/2021', y: 2 },
+              { x: '02/01/2021', y: 3 },
+              { x: '03/01/2021', y: 5 },
+              { x: '01/02/2021', y: 10 },
+              { x: '02/02/2021', y: 5 },
+            ],
+          },
+        ],
+        loading: false,
+        isError: false,
+      },
+      datepicker: {
+        startDate: '',
+        endDate: '',
+      },
+    };
+    const { container } = render(<LineChart />);
+    fireEvent.click(screen.getByTestId('Month'));
+    expect(container).toMatchSnapshot();
   });
   it('get data error', () => {
     mockState = {

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRange component change date range input 1`] = `
+<div>
+  <div
+    class="sc-gsDKAQ hGZSxA"
+    style="display: flex;"
+  >
+    <span
+      class="sc-bdvvtL clXdJo"
+    >
+      Range
+    </span>
+    <div
+      class="react-datepicker-wrapper"
+    >
+      <div
+        class="react-datepicker__input-container"
+      >
+        <input
+          class=""
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <button
+      class="btn-submit-date btn btn-primary btn-sm"
+      type="button"
+    >
+      Ok
+    </button>
+  </div>
+</div>
+`;
