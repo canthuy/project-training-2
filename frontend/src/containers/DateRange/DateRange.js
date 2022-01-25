@@ -15,18 +15,17 @@ const DateRange = () => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [newStartDate, newEndDate] = dateRange;
   const handleClick = () => {
-    if (
-      newStartDate !== null &&
-      newEndDate !== null &&
-      newStartDate !== startDate ||
-      newEndDate !== endDate
-    ) {
-      dispatch(
-        getDate({
-          startDate: moment(newStartDate).format('DD/MM/YYYY'),
-          endDate: moment(newEndDate).format('DD/MM/YYYY'),
-        })
-      );
+    if (newStartDate !== null && newEndDate !== null) {
+      const start = moment(newStartDate).format('DD/MM/YYYY');
+      const end = moment(newEndDate).format('DD/MM/YYYY');
+      if (start !== startDate || end !== endDate) {
+        dispatch(
+          getDate({
+            startDate: start,
+            endDate: end,
+          })
+        );
+      }
     }
   };
   return (

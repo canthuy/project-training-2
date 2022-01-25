@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateRange component change date range input 1`] = `
+exports[`DateRange component change date range and dispatch 1`] = `
 <div>
   <div
     class="sc-gsDKAQ hGZSxA"
@@ -20,7 +20,7 @@ exports[`DateRange component change date range input 1`] = `
         <input
           class=""
           type="text"
-          value=""
+          value="14/01/2022 - 23/01/2022"
         />
       </div>
     </div>

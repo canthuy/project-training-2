@@ -27,18 +27,40 @@ describe('DateRange component', () => {
     useDispatch.mockClear();
     useSelector.mockClear();
   });
-  it('change date range input', () => {
-    const { container } = render(<DateRange />);
+  it('change date range and dispatch', () => {
+    const {container} = render(<DateRange />);
+    screen.getByRole('textbox').focus();
+    const newSD = screen.getByText('14');
+    const newED = screen.getByText('23');
+    fireEvent.click(newSD);
+    fireEvent.click(newED);
+    expect(screen.getByRole('textbox').value).toEqual(
+      '14/01/2022 - 23/01/2022'
+    );
     expect(container).toMatchSnapshot();
-    const inputDate = screen.getByRole('textbox');
-    fireEvent.change(inputDate, {
-      target: { value: '01/01/2021 - 02/02/2021' },
-    });
-    expect(inputDate.value).toEqual('01/01/2021 - 02/02/2021');
-  });
-  it('click ok', () => {
-    render(<DateRange />);
-    fireEvent.click(screen.getByRole('button', { name: /Ok/i }));
+    fireEvent.click(screen.getByRole('button', { name: /ok/i }));
     expect(mockDispatch).toHaveBeenCalled();
+  });
+  it('newStartDate, newEndDate is null', () => {
+    render(<DateRange />);
+    screen.getByRole('textbox').focus();
+    fireEvent.click(screen.getByRole('button', { name: /ok/i }));
+    expect(mockDispatch).not.toHaveBeenCalled();
+  });
+  it('startDate, endDate not null and do not change date range', () => {
+    mockState = {
+      datepicker: {
+        startDate: '08/01/2022',
+        endDate: '25/01/2022',
+      },
+    };
+    render(<DateRange />);
+    screen.getByRole('textbox').focus();
+    const newSD = screen.getByText('8');
+    const newED = screen.getByText('25');
+    fireEvent.click(newSD);
+    fireEvent.click(newED);
+    fireEvent.click(screen.getByRole('button', { name: /ok/i }));
+    expect(mockDispatch).not.toHaveBeenCalled();
   });
 });
