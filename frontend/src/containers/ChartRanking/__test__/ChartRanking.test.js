@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import ChartRanking from '../ChartRanking';
 window.React = React;
@@ -13,7 +13,7 @@ jest.mock('react-redux', () => ({
 describe('ChartRanking Component', () => {
   let mockAppState = {};
   beforeEach(() => {
-    useDispatch.mockImplementation(() => () => {});
+    useDispatch.mockImplementation(() => () => { });
     useSelector.mockImplementation((callback) => {
       return callback(mockAppState);
     });
@@ -72,8 +72,8 @@ describe('ChartRanking Component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<ChartRanking />);
+    const { container, getByText } = render(<ChartRanking />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText('Error: Network Error')).toBeTruthy();
+    expect(getByText('Error: Network Error')).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import ChartDonut from '../ChartDonut';
 window.React = React;
@@ -13,7 +13,7 @@ jest.mock('react-redux', () => ({
 describe('ChartDonut Component', () => {
   let mockAppState = {};
   beforeEach(() => {
-    useDispatch.mockImplementation(() => () => {});
+    useDispatch.mockImplementation(() => () => { });
     useSelector.mockImplementation((callback) => {
       return callback(mockAppState);
     });
@@ -70,8 +70,8 @@ describe('ChartDonut Component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<ChartDonut />);
+    const { container, getByText } = render(<ChartDonut />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText('Error: Network Error')).toBeTruthy();
+    expect(getByText('Error: Network Error')).toBeTruthy();
   });
 });

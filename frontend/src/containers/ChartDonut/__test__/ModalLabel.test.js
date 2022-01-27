@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalLabel from '../ModalLabel';
 window.React = React;
@@ -42,64 +42,63 @@ describe('ModalLabel component', () => {
   });
 
   it('Show modal label', () => {
-    const { container } = render(<ModalLabel />);
+    const { container, getByText, getByRole } = render(<ModalLabel />);
     expect(container).toMatchSnapshot();
-    const buttonLabel = screen.getByRole('button', { name: /Labels/i });
+    const buttonLabel = getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
-    expect(screen.getByText('Android')).toBeTruthy();
-    expect(screen.getByText('Labels')).toBeTruthy();
+    expect(getByText('Android')).toBeTruthy();
+    expect(getByText('Labels')).toBeTruthy();
   });
   it('Click label', () => {
-    render(<ModalLabel />);
-    const buttonLabel = screen.getByRole('button', { name: /Labels/i });
+    const { getByText, getByRole, queryAllByTestId } = render(<ModalLabel />);
+    const buttonLabel = getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
-    const label = screen.getByText('Android');
+    const label = getByText('Android');
     fireEvent.click(label);
-    expect(screen.queryAllByTestId('test-svg')).toHaveLength(5);
+    expect(queryAllByTestId('test-svg')).toHaveLength(5);
     fireEvent.click(label);
-    expect(screen.queryAllByTestId('test-svg')).toHaveLength(6);
+    expect(queryAllByTestId('test-svg')).toHaveLength(6);
   });
   it('Hide modal label and do not change labels', () => {
-    render(<ModalLabel />);
-    const buttonLabel = screen.getByRole('button', { name: /Labels/i });
+    const { getByRole } = render(<ModalLabel />);
+    const buttonLabel = getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
     fireEvent.click(document.querySelector('.modal-backdrop'));
     expect(mockDispatch).not.toHaveBeenCalled();
   });
   it('Hide modal label and dispatch label', () => {
-    render(<ModalLabel />);
-    const buttonLabel = screen.getByRole('button', { name: /Labels/i });
+    const { getByText, getByRole } = render(<ModalLabel />);
+    const buttonLabel = getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
-    expect(screen.queryAllByTestId('test-svg')).toHaveLength(6);
-    fireEvent.click(screen.getByText('Android'));
-    fireEvent.click(screen.getByText('iOS'));
+    fireEvent.click(getByText('Android'));
+    fireEvent.click(getByText('iOS'));
     fireEvent.click(document.querySelector('.modal-backdrop'));
     expect(mockDispatch).toHaveBeenCalled();
   });
   it('hide modal and no device type selected', () => {
     global.alert = jest.fn();
-    render(<ModalLabel />);
-    const buttonLabel = screen.getByRole('button', { name: /Labels/i });
+    const { getByText, getByRole } = render(<ModalLabel />);
+    const buttonLabel = getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
-    fireEvent.click(screen.getByText('Android'));
-    fireEvent.click(screen.getByText('iOS'));
-    fireEvent.click(screen.getByText('Linux'));
-    fireEvent.click(screen.getByText('Windows'));
-    fireEvent.click(screen.getByText('Os X'));
-    fireEvent.click(screen.getByText('Unknown'));
+    fireEvent.click(getByText('Android'));
+    fireEvent.click(getByText('iOS'));
+    fireEvent.click(getByText('Linux'));
+    fireEvent.click(getByText('Windows'));
+    fireEvent.click(getByText('Os X'));
+    fireEvent.click(getByText('Unknown'));
     fireEvent.click(document.querySelector('.modal-backdrop'));
     expect(global.alert).toHaveBeenCalled();
   });
   it('Filter input', () => {
-    render(<ModalLabel />);
-    const buttonLabel = screen.getByRole('button', { name: /Labels/i });
+    const { queryByText, getByRole } = render(<ModalLabel />);
+    const buttonLabel = getByRole('button', { name: /Labels/i });
     fireEvent.click(buttonLabel);
-    const inputFilter = screen.getByRole('textbox');
+    const inputFilter = getByRole('textbox');
     fireEvent.change(inputFilter, { target: { value: 'android' } });
     expect(inputFilter.value).toEqual('android');
-    expect(screen.queryByText('iOS')).not.toBeTruthy();
+    expect(queryByText('iOS')).not.toBeTruthy();
 
     fireEvent.change(inputFilter, { target: { value: '' } });
-    expect(screen.queryByText('iOS')).toBeTruthy();
+    expect(queryByText('iOS')).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import ChartHeatmap from '../ChartHeatmap';
 window.React = React;
@@ -68,9 +68,9 @@ describe('ChartHeatmap component', () => {
         endDate: '01/02/2021',
       },
     };
-    const  {container}  = render(<ChartHeatmap />);
+    const  {container, getByText}  = render(<ChartHeatmap />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText('Device By Hour')).toBeTruthy();
+    expect(getByText('Device By Hour')).toBeTruthy();
   });
   it('get data error', () => {
     mockState = {
@@ -84,9 +84,9 @@ describe('ChartHeatmap component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<ChartHeatmap />);
+    const { container, getByText } = render(<ChartHeatmap />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText('Error: Network Error')).toBeTruthy();
+    expect(getByText('Error: Network Error')).toBeTruthy();
   });
   
 });

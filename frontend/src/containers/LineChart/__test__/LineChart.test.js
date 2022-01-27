@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import LineChart from '../LineChart';
 window.React = React;
@@ -13,7 +13,7 @@ jest.mock('react-apexcharts', () => 'Chart');
 describe('LineChart component', () => {
   let mockState = {};
   beforeEach(() => {
-    useDispatch.mockImplementation(() => () => {});
+    useDispatch.mockImplementation(() => () => { });
     useSelector.mockImplementation((callback) => {
       return callback(mockState);
     });
@@ -68,9 +68,9 @@ describe('LineChart component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<LineChart />);
+    const { container, getByText } = render(<LineChart />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText(/Device/i)).toBeTruthy();
+    expect(getByText(/Device/i)).toBeTruthy();
   });
   it('get data success and group by day', () => {
     mockState = {
@@ -105,8 +105,8 @@ describe('LineChart component', () => {
         endDate: '',
       },
     };
-    const { container } = render(<LineChart />);
-    fireEvent.click(screen.getByTestId('Day'));
+    const { container, getByTestId } = render(<LineChart />);
+    fireEvent.click(getByTestId('Day'));
     expect(container).toMatchSnapshot();
   });
   it('get data success and group by week', () => {
@@ -142,8 +142,8 @@ describe('LineChart component', () => {
         endDate: '',
       },
     };
-    const { container } = render(<LineChart />);
-    fireEvent.click(screen.getByTestId('Week'));
+    const { container, getByTestId } = render(<LineChart />);
+    fireEvent.click(getByTestId('Week'));
     expect(container).toMatchSnapshot();
   });
   it('get data success and group by month', () => {
@@ -179,8 +179,8 @@ describe('LineChart component', () => {
         endDate: '',
       },
     };
-    const { container } = render(<LineChart />);
-    fireEvent.click(screen.getByTestId('Month'));
+    const { container, getByTestId } = render(<LineChart />);
+    fireEvent.click(getByTestId('Month'));
     expect(container).toMatchSnapshot();
   });
   it('get data error', () => {
@@ -195,8 +195,8 @@ describe('LineChart component', () => {
         endDate: '01/02/2021',
       },
     };
-    const { container } = render(<LineChart />);
+    const { container, getByText } = render(<LineChart />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText('Error: Network Error')).toBeTruthy();
+    expect(getByText('Error: Network Error')).toBeTruthy();
   });
 });

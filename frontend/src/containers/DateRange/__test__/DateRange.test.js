@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import DateRange from '../DateRange';
 window.React = React;
@@ -28,23 +28,23 @@ describe('DateRange component', () => {
     useSelector.mockClear();
   });
   it('change date range and dispatch', () => {
-    const {container} = render(<DateRange />);
-    screen.getByRole('textbox').focus();
-    const newSD = screen.getByText('14');
-    const newED = screen.getByText('23');
+    const { container, getByText, getByRole } = render(<DateRange />);
+    getByRole('textbox').focus();
+    const newSD = getByText('14');
+    const newED = getByText('23');
     fireEvent.click(newSD);
     fireEvent.click(newED);
-    expect(screen.getByRole('textbox').value).toEqual(
+    expect(getByRole('textbox').value).toEqual(
       '14/01/2022 - 23/01/2022'
     );
     expect(container).toMatchSnapshot();
-    fireEvent.click(screen.getByRole('button', { name: /ok/i }));
+    fireEvent.click(getByRole('button', { name: /ok/i }));
     expect(mockDispatch).toHaveBeenCalled();
   });
   it('newStartDate, newEndDate is null', () => {
-    render(<DateRange />);
-    screen.getByRole('textbox').focus();
-    fireEvent.click(screen.getByRole('button', { name: /ok/i }));
+    const { getByRole } = render(<DateRange />);
+    getByRole('textbox').focus();
+    fireEvent.click(getByRole('button', { name: /ok/i }));
     expect(mockDispatch).not.toHaveBeenCalled();
   });
   it('startDate, endDate not null and do not change date range', () => {
@@ -54,13 +54,13 @@ describe('DateRange component', () => {
         endDate: '25/01/2022',
       },
     };
-    render(<DateRange />);
-    screen.getByRole('textbox').focus();
-    const newSD = screen.getByText('8');
-    const newED = screen.getByText('25');
+    const { getByText, getByRole } = render(<DateRange />);
+    getByRole('textbox').focus();
+    const newSD = getByText('8');
+    const newED = getByText('25');
     fireEvent.click(newSD);
     fireEvent.click(newED);
-    fireEvent.click(screen.getByRole('button', { name: /ok/i }));
+    fireEvent.click(getByRole('button', { name: /ok/i }));
     expect(mockDispatch).not.toHaveBeenCalled();
   });
 });
