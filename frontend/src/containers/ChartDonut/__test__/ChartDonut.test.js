@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
-import ChartDonut from '../containers/ChartDonut/ChartDonut';
+import ChartDonut from '../ChartDonut';
 window.React = React;
 
 jest.mock('react-redux', () => ({
@@ -13,7 +13,7 @@ jest.mock('react-redux', () => ({
 describe('ChartDonut Component', () => {
   let mockAppState = {};
   beforeEach(() => {
-    useDispatch.mockImplementation(() => () => {});
+    useDispatch.mockImplementation(() => () => { });
     useSelector.mockImplementation((callback) => {
       return callback(mockAppState);
     });
@@ -25,9 +25,13 @@ describe('ChartDonut Component', () => {
   it('loading data', () => {
     mockAppState = {
       device: {
-        deviceData: {},
+        deviceData: [],
         loading: true,
         isError: false,
+      },
+      datepicker: {
+        startDate: '01/01/2021',
+        endDate: '01/02/2021',
       },
     };
     const { container } = render(<ChartDonut />);
@@ -38,9 +42,16 @@ describe('ChartDonut Component', () => {
   it('get data success', () => {
     mockAppState = {
       device: {
-        deviceData: { android: 50, iOS: 50 },
+        deviceData: [
+          { x: 'Android', y: 50 },
+          { x: 'iOS', y: 50 },
+        ],
         loading: false,
         isError: false,
+      },
+      datepicker: {
+        startDate: '01/01/2021',
+        endDate: '01/02/2021',
       },
     };
     const { container } = render(<ChartDonut />);
@@ -50,13 +61,17 @@ describe('ChartDonut Component', () => {
   it('get data error', () => {
     mockAppState = {
       device: {
-        deviceData: {},
+        deviceData: [],
         loading: false,
         isError: true,
       },
+      datepicker: {
+        startDate: '01/01/2021',
+        endDate: '01/02/2021',
+      },
     };
-    const { container } = render(<ChartDonut />);
+    const { container, getByText } = render(<ChartDonut />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText('Error: Network Error')).toBeTruthy();
+    expect(getByText('Error: Network Error')).toBeTruthy();
   });
 });

@@ -75,7 +75,7 @@ const ModalLabel = () => {
               >
                 <span>{val}</span>
                 {listChecked.includes(val) && (
-                  <FontAwesomeIcon icon={faCheck} />
+                  <FontAwesomeIcon icon={faCheck} data-testid = 'test-svg'/>
                 )}
               </div>
             );

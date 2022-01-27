@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
-import ChartRanking from '../containers/ChartRanking/ChartRanking';
+import ChartRanking from '../ChartRanking';
 window.React = React;
 
 jest.mock('react-redux', () => ({
@@ -13,7 +13,7 @@ jest.mock('react-redux', () => ({
 describe('ChartRanking Component', () => {
   let mockAppState = {};
   beforeEach(() => {
-    useDispatch.mockImplementation(() => () => {});
+    useDispatch.mockImplementation(() => () => { });
     useSelector.mockImplementation((callback) => {
       return callback(mockAppState);
     });
@@ -28,6 +28,10 @@ describe('ChartRanking Component', () => {
         rankingData: [],
         loading: true,
         isError: false,
+      },
+      datepicker: {
+        startDate: '01/01/2021',
+        endDate: '01/02/2021',
       },
     };
     const { container } = render(<ChartRanking />);
@@ -46,6 +50,10 @@ describe('ChartRanking Component', () => {
         loading: false,
         isError: false,
       },
+      datepicker: {
+        startDate: '01/01/2021',
+        endDate: '01/02/2021',
+      },
     };
     const { container } = render(<ChartRanking />);
     expect(container).toMatchSnapshot();
@@ -59,9 +67,13 @@ describe('ChartRanking Component', () => {
         loading: false,
         isError: true,
       },
+      datepicker: {
+        startDate: '01/01/2021',
+        endDate: '01/02/2021',
+      },
     };
-    const { container } = render(<ChartRanking />);
+    const { container, getByText } = render(<ChartRanking />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByText('Error: Network Error')).toBeTruthy();
+    expect(getByText('Error: Network Error')).toBeTruthy();
   });
 });
