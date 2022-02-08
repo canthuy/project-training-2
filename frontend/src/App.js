@@ -10,7 +10,7 @@ function App() {
   return (
     <Fragment>
       <DateRange />
-      <div className='container-chart '>
+      <div className="container-chart ">
         <ChartDoughnut />
         <LineChart />
       </div>
@@ -19,4 +19,5 @@ function App() {
     </Fragment>
   );
 }
+
 export default App;

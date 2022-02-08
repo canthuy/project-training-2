@@ -6,6 +6,7 @@ const handleData = (deviceData, formatType) => {
       x: moment(day.x, 'DD/MM/YYYY').format(formatType),
       y: day.y,
     }));
+
     let obj = {};
     const newData = data.reduce((totalY, day) => {
       if (!obj[day.x]) {
@@ -21,6 +22,7 @@ const handleData = (deviceData, formatType) => {
       data: newData,
     };
   });
+
   return newSeries;
 };
 

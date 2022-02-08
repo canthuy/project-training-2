@@ -14,6 +14,7 @@ const DateRange = () => {
   const { startDate, endDate } = useSelector((state) => state.datepicker);
   const [dateRange, setDateRange] = useState([null, null]);
   const [newStartDate, newEndDate] = dateRange;
+
   const handleClick = () => {
     if (newStartDate !== null && newEndDate !== null) {
       const start = moment(newStartDate).format('DD/MM/YYYY');
@@ -28,6 +29,7 @@ const DateRange = () => {
       }
     }
   };
+
   return (
     <DateRangeSC style={{ display: 'flex' }}>
       <Label>Range</Label>

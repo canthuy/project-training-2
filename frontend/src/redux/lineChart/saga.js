@@ -11,7 +11,7 @@ function* getLineChart(action) {
   }
 }
 function* lineChartSaga() {
-  yield takeLatest('GET_LINECHART_DATA', getLineChart);
+  yield takeLatest('GET_LINE_CHART_DATA', getLineChart);
 }
 
 export default lineChartSaga;

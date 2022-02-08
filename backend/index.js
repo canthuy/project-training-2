@@ -6,6 +6,7 @@ const app = express();
 const port = 3002;
 
 app.use(cors());
+
 app.get("/device_summary", (req, res) => {
   const { device_types } = req.query;
   const data = [
@@ -25,6 +26,7 @@ app.get("/device_summary", (req, res) => {
     res.send(dataRes.filter((val) => val !== ""));
   }, 10000);
 });
+
 app.get("/ranking", (req, res) => {
   const { startDate, endDate } = req.query;
   const data = [
@@ -40,6 +42,7 @@ app.get("/ranking", (req, res) => {
     res.send(data);
   }, 5000);
 });
+
 app.get("/heat_chart", (req, res) => {
   const dataHeat = _.map(
     [
@@ -63,6 +66,7 @@ app.get("/heat_chart", (req, res) => {
     res.send(dataHeat);
   }, 5000);
 });
+
 app.get("/device_by_day", (req, res) => {
   const { startDate, endDate } = req.query;
   const dataLineChart = _.map(["Android", "iOS"], (device) => {
@@ -95,6 +99,7 @@ app.get("/device_by_day", (req, res) => {
     res.send(dataLineChart);
   }, 7000);
 });
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}\n`);
 });
