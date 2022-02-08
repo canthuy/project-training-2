@@ -13,9 +13,11 @@ const ChartDoughnut = () => {
   const { deviceData, loading, isError } = useSelector((state) => state.device);
   const { startDate, endDate } = useSelector((state) => state.datepicker);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getData([startDate, endDate, deviceData.map((val) => val.x)]));
   }, [startDate, endDate]);
+
   const options = {
     plugins: {
       legend: {
@@ -32,7 +34,7 @@ const ChartDoughnut = () => {
       },
       title: {
         display: true,
-        text: 'Decive Type',
+        text: 'Device Type',
         align: 'start',
         font: {
           size: 18,
@@ -50,6 +52,7 @@ const ChartDoughnut = () => {
     },
     cutout: '75%',
   };
+
   const data = {
     labels: deviceData.map((val) => val.x),
     datasets: [
@@ -74,22 +77,20 @@ const ChartDoughnut = () => {
       },
     ],
   };
+
   const displayChart = (
-    <ChartSC>
+    <Fragment>
       <ModalLabel />
       <Doughnut data={data} options={options} />
-    </ChartSC>
+    </Fragment>
   );
+
   return (
-    <Fragment>
-      {loading && (
-        <ChartSC>
-          <Loading />
-        </ChartSC>
-      )}
+    <ChartSC>
+      {loading && <Loading />}
       {isError && <Error message="Error: Network Error" />}
       {!isError && !loading && displayChart}
-    </Fragment>
+    </ChartSC>
   );
 };
 export default ChartDoughnut;

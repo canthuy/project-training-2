@@ -18,6 +18,7 @@ const ModalLabel = () => {
     deviceData.map((val) => val.x)
   );
   const dispatch = useDispatch();
+
   const onClickLabel = (val) => {
     setListChecked((prevList) => {
       const isChecked = prevList.includes(val);
@@ -27,11 +28,13 @@ const ModalLabel = () => {
       return [...prevList, val];
     });
   };
+
   const onHideModal = () => {
     const prevListChecked = deviceData.map((val) => val.x);
     const isTrue =
       listChecked.length === prevListChecked.length &&
       prevListChecked.every((v) => listChecked.includes(v));
+
     if (listChecked.length > 0) {
       if (!isTrue) {
         dispatch(getData([startDate, endDate, listChecked]));
@@ -42,6 +45,7 @@ const ModalLabel = () => {
       alert('Please select device type');
     }
   };
+
   const handleFilter = (e) => {
     e.preventDefault();
     const keyFilter = e.target.value.trim();
@@ -53,6 +57,7 @@ const ModalLabel = () => {
       setListLabel(listDevices);
     }
   };
+
   return (
     <>
       <Button className="btn-labels" size="sm" onClick={() => setShow(true)}>
@@ -75,7 +80,7 @@ const ModalLabel = () => {
               >
                 <span>{val}</span>
                 {listChecked.includes(val) && (
-                  <FontAwesomeIcon icon={faCheck} data-testid = 'test-svg'/>
+                  <FontAwesomeIcon icon={faCheck} data-testid="test-svg" />
                 )}
               </div>
             );

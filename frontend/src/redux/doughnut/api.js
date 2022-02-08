@@ -5,7 +5,7 @@ const getDeviceData = (startDate, endDate, device_types) => {
     params: {
       startDate,
       endDate,
-      device_types
+      device_types,
     },
   });
 };

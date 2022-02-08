@@ -1,4 +1,4 @@
-import {GET_DATE_RANGE} from './actionTypes';
+import { GET_DATE_RANGE } from './types';
 
 const getDate = (payload) => {
   return {

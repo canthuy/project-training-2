@@ -4,6 +4,7 @@ const ChartSC = styled.div`
   width: 70%;
   margin: 20px;
 `;
+
 const Title = styled.h5`
   margin: 0;
   margin-left: 10px;

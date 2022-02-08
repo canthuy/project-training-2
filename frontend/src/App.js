@@ -6,6 +6,7 @@ import LineChart from './containers/LineChart/LineChart';
 import DateRange from './containers/DateRange/DateRange';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+
 function App() {
   return (
     <Fragment>
@@ -19,4 +20,5 @@ function App() {
     </Fragment>
   );
 }
+
 export default App;

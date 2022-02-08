@@ -21,16 +21,19 @@ const LineChart = () => {
   useEffect(() => {
     dispatch(getData([startDate, endDate]));
   }, [startDate, endDate]);
+
   useEffect(() => {
     setSeries(deviceData);
     setIsActive(0);
   }, [deviceData]);
+
   const totalData = useMemo(() => {
     const total = deviceData.map((val) =>
       val.data.reduce((acc, val) => acc + val.y, 0)
     );
     return total;
   }, [deviceData]);
+
   const options = {
     chart: {
       toolbar: {
@@ -60,6 +63,7 @@ const LineChart = () => {
     },
     colors: ['#925de2', '#48c0b0'],
   };
+
   const handleClick = useCallback(
     (index) => {
       setIsActive(index);
@@ -77,35 +81,34 @@ const LineChart = () => {
     },
     [deviceData]
   );
+
   return (
-    <>
-      <ChartSC>
-        {loading && <Loading />}
-        {isError && <Error message="Error: Network Error" />}
-        {!loading && !isError && (
-          <Fragment>
-            <div className="data-group">
-              <Title>Device</Title>
-              <div>
-                {groupData.map((val, index) => {
-                  return (
-                    <span
-                      key={index}
-                      style={{ opacity: isActive === index ? 1 : 0.3 }}
-                      data-testid = {val}
-                      onClick={() => handleClick(index)}
-                    >
-                      {val}
-                    </span>
-                  );
-                })}
-              </div>
+    <ChartSC>
+      {loading && <Loading />}
+      {isError && <Error message="Error: Network Error" />}
+      {!loading && !isError && (
+        <Fragment>
+          <div className="data-group">
+            <Title>Device</Title>
+            <div>
+              {groupData.map((val, index) => {
+                return (
+                  <span
+                    key={index}
+                    style={{ opacity: isActive === index ? 1 : 0.3 }}
+                    data-testid={val}
+                    onClick={() => handleClick(index)}
+                  >
+                    {val}
+                  </span>
+                );
+              })}
             </div>
-            <Chart options={options} series={series} type="line" height={404} />
-          </Fragment>
-        )}
-      </ChartSC>
-    </>
+          </div>
+          <Chart options={options} series={series} type="line" height={404} />
+        </Fragment>
+      )}
+    </ChartSC>
   );
 };
 

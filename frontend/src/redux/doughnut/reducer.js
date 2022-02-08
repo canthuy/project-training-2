@@ -1,8 +1,4 @@
-import {
-  GET_DEVICE_DATA,
-  GET_DATA_SUCCESS,
-  GET_DATA_ERROR,
-} from './ActionType';
+import { GET_DEVICE_DATA, GET_DATA_SUCCESS, GET_DATA_ERROR } from './types';
 
 const initState = {
   deviceData: [],
@@ -20,7 +16,7 @@ const reducer = (state = initState, action) => {
       const { data } = action.payload;
       return {
         ...state,
-        deviceData: [ ...data ],
+        deviceData: [...data],
         loading: false,
         isError: false,
       };

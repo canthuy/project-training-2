@@ -1,8 +1,8 @@
 import {
-  GET_LINECHART_DATA,
-  GET_LINECHART_SUCCESS,
-  GET_LINECHART_ERROR,
-} from './ActionType';
+  GET_LINE_CHART_DATA,
+  GET_LINE_CHART_SUCCESS,
+  GET_LINE_CHART_ERROR,
+} from './types';
 
 const initState = {
   deviceData: [],
@@ -12,19 +12,19 @@ const initState = {
 
 const lineChartReducer = (state = initState, action) => {
   switch (action.type) {
-    case GET_LINECHART_DATA:
+    case GET_LINE_CHART_DATA:
       return {
         ...state,
         loading: true,
       };
-    case GET_LINECHART_SUCCESS:
+    case GET_LINE_CHART_SUCCESS:
       const { data } = action.payload;
       return {
         deviceData: [...data],
         loading: false,
         isError: false,
       };
-    case GET_LINECHART_ERROR:
+    case GET_LINE_CHART_ERROR:
       return {
         ...state,
         loading: false,

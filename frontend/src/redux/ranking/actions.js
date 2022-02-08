@@ -2,7 +2,7 @@ import {
   GET_RANKING_DATA,
   GET_RANKING_SUCCESS,
   GET_RANKING_ERROR,
-} from './ActionType';
+} from './types';
 
 const getData = (payload) => {
   return {

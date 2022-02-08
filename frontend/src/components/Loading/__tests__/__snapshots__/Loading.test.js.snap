@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading component render component 1`] = `
+<div>
+  <div
+    class="sc-bdvvtL heGnFz"
+  >
+    <div
+      class="spinner-border"
+    />
+  </div>
+</div>
+`;

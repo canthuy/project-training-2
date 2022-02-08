@@ -18,11 +18,15 @@ exports[`ChartRanking Component Loading data 1`] = `
 
 exports[`ChartRanking Component get data error 1`] = `
 <div>
-  <h2
-    class="sc-gsDKAQ ioZYxa"
+  <div
+    class="sc-dkPtRN gacyIl"
   >
-    Error: Network Error
-  </h2>
+    <h2
+      class="sc-gsDKAQ ioZYxa"
+    >
+      Error: Network Error
+    </h2>
+  </div>
 </div>
 `;
 
