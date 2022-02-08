@@ -1,26 +1,26 @@
 import {
-  GET_HEATCHART_DATA,
-  GET_HEATCHART_SUCCESS,
-  GET_HEATCHART_ERROR,
-} from './ActionType';
+  GET_HEAT_CHART_DATA,
+  GET_HEAT_CHART_SUCCESS,
+  GET_HEAT_CHART_ERROR,
+} from './types';
 
 const getData = (payload) => {
   return {
-    type: GET_HEATCHART_DATA,
+    type: GET_HEAT_CHART_DATA,
     payload,
   };
 };
 
 const getDataSuccess = (payload) => {
   return {
-    type: GET_HEATCHART_SUCCESS,
+    type: GET_HEAT_CHART_SUCCESS,
     payload,
   };
 };
 
 const getDataError = (payload) => {
   return {
-    type: GET_HEATCHART_ERROR,
+    type: GET_HEAT_CHART_ERROR,
     payload,
   };
 };

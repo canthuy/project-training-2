@@ -1,24 +1,24 @@
 import {
-  GET_LINECHART_DATA,
-  GET_LINECHART_SUCCESS,
-  GET_LINECHART_ERROR,
-} from './ActionType';
+  GET_LINE_CHART_DATA,
+  GET_LINE_CHART_SUCCESS,
+  GET_LINE_CHART_ERROR,
+} from './types';
 
 const getData = (payload) => {
   return {
-    type: GET_LINECHART_DATA,
+    type: GET_LINE_CHART_DATA,
     payload,
   };
 };
 const getDataSuccess = (payload) => {
   return {
-    type: GET_LINECHART_SUCCESS,
+    type: GET_LINE_CHART_SUCCESS,
     payload,
   };
 };
 const getDataError = (payload) => {
   return {
-    type: GET_LINECHART_ERROR,
+    type: GET_LINE_CHART_ERROR,
     payload,
   };
 };

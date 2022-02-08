@@ -2,11 +2,15 @@
 
 exports[`ChartDonut Component get data error 1`] = `
 <div>
-  <h2
-    class="sc-dkPtRN cZRHky"
+  <div
+    class="sc-bdvvtL dCkjDj"
   >
-    Error: Network Error
-  </h2>
+    <h2
+      class="sc-dkPtRN cZRHky"
+    >
+      Error: Network Error
+    </h2>
+  </div>
 </div>
 `;
 

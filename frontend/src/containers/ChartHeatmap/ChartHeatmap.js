@@ -19,16 +19,19 @@ const ChartHeatmap = () => {
   );
   const { startDate, endDate } = useSelector((state) => state.datepicker);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getData([startDate, endDate]));
   }, [startDate, endDate]);
 
   const dataBarChart = heatmapData.map((value) => {
-    return value.data.reduce((sum, curentVal) => {
-      return sum + curentVal.y;
+    return value.data.reduce((sum, currentVal) => {
+      return sum + currentVal.y;
     }, 0);
   });
+
   const maxValue = Math.max(...dataBarChart);
+
   const optionsBar = {
     chart: {
       offsetX: -30,
@@ -97,6 +100,7 @@ const ChartHeatmap = () => {
       data: dataBarChart.reverse(),
     },
   ];
+
   const options = {
     chart: {
       toolbar: {
@@ -134,50 +138,40 @@ const ChartHeatmap = () => {
   };
 
   return (
-    <Fragment>
-      {loading && (
-        <ChartSC>
-          <Loading />
-        </ChartSC>
-      )}
-      {isError && (
-        <ChartSC>
-          <Error message="Error: Network Error" />
-        </ChartSC>
-      )}
+    <ChartSC>
+      {loading && <Loading />}
+      {isError && <Error message="Error: Network Error" />}
       {!isError && !loading && (
         <Fragment>
           <Title>Device By Hour</Title>
-          <ChartSC>
-            <ChartHeatmapSC>
-              <Chart
-                options={options}
-                series={heatmapData}
-                type="heatmap"
-                height={350}
-              />
-            </ChartHeatmapSC>
-            <BarChartSC>
-              <Chart
-                options={optionsBar}
-                series={seriesBar}
-                type="bar"
-                height={350}
-              />
-            </BarChartSC>
-            <ColorGradient />
-            <NoteNumber>
-              <span>0</span>
-              <span>10</span>
-              <span>20</span>
-              <span>30</span>
-              <span>40</span>
-              <span>50</span>
-            </NoteNumber>
-          </ChartSC>
+          <ChartHeatmapSC>
+            <Chart
+              options={options}
+              series={heatmapData}
+              type="heatmap"
+              height={350}
+            />
+          </ChartHeatmapSC>
+          <BarChartSC>
+            <Chart
+              options={optionsBar}
+              series={seriesBar}
+              type="bar"
+              height={350}
+            />
+          </BarChartSC>
+          <ColorGradient />
+          <NoteNumber>
+            <span>0</span>
+            <span>10</span>
+            <span>20</span>
+            <span>30</span>
+            <span>40</span>
+            <span>50</span>
+          </NoteNumber>
         </Fragment>
       )}
-    </Fragment>
+    </ChartSC>
   );
 };
 

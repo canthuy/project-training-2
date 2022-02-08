@@ -16,14 +16,14 @@ exports[`ChartHeatmap component get data error 1`] = `
 
 exports[`ChartHeatmap component get data success 1`] = `
 <div>
-  <h5
-    class="sc-hKwDye gbEqEH"
-  >
-    Device By Hour
-  </h5>
   <div
     class="sc-dkPtRN drAAzJ"
   >
+    <h5
+      class="sc-hKwDye gbEqEH"
+    >
+      Device By Hour
+    </h5>
     <div
       class="sc-eCImPb kzSnaY"
     >

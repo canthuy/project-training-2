@@ -9,7 +9,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { useSelector, useDispatch } from 'react-redux';
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { getData } from '../../redux/ranking/actions';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
@@ -20,12 +20,13 @@ const ChartRanking = () => {
   const { rankingData, loading, isError } = useSelector(
     (state) => state.ranking
   );
-  const {startDate, endDate} = useSelector(state => state.datepicker);
+  const { startDate, endDate } = useSelector((state) => state.datepicker);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getData([startDate, endDate]));
   }, [startDate, endDate]);
+
   const options = {
     indexAxis: 'y',
     scales: {
@@ -67,6 +68,7 @@ const ChartRanking = () => {
       },
     },
   };
+
   const data = {
     labels: rankingData.map((val) => val.label),
     datasets: [
@@ -78,20 +80,13 @@ const ChartRanking = () => {
       },
     ],
   };
+
   return (
-    <Fragment>
+    <RankingSC>
       {isError && <Error message="Error: Network Error" />}
-      {loading && (
-        <RankingSC>
-          <Loading />
-        </RankingSC>
-      )}
-      {!loading && !isError && (
-        <RankingSC>
-          <Bar data={data} options={options} />
-        </RankingSC>
-      )}
-    </Fragment>
+      {loading && <Loading />}
+      {!loading && !isError && <Bar data={data} options={options} />}
+    </RankingSC>
   );
 };
 

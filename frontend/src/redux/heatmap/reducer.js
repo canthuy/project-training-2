@@ -1,8 +1,8 @@
 import {
-  GET_HEATCHART_DATA,
-  GET_HEATCHART_SUCCESS,
-  GET_HEATCHART_ERROR,
-} from './ActionType';
+  GET_HEAT_CHART_DATA,
+  GET_HEAT_CHART_SUCCESS,
+  GET_HEAT_CHART_ERROR,
+} from './types';
 
 const initState = {
   heatmapData: [],
@@ -11,12 +11,12 @@ const initState = {
 };
 const heatChartReducer = (state = initState, action) => {
   switch (action.type) {
-    case GET_HEATCHART_DATA:
+    case GET_HEAT_CHART_DATA:
       return {
         ...state,
         loading: true,
       };
-    case GET_HEATCHART_SUCCESS:
+    case GET_HEAT_CHART_SUCCESS:
       const { data } = action.payload;
       return {
         ...state,
@@ -24,7 +24,7 @@ const heatChartReducer = (state = initState, action) => {
         loading: false,
         isError: false,
       };
-    case GET_HEATCHART_ERROR:
+    case GET_HEAT_CHART_ERROR:
       return {
         ...state,
         loading: false,

@@ -1,27 +1,23 @@
-import {
-  GET_DEVICE_DATA,
-  GET_DATA_SUCCESS,
-  GET_DATA_ERROR
-} from './ActionType';
+import { GET_DEVICE_DATA, GET_DATA_SUCCESS, GET_DATA_ERROR } from './types';
 
 const getData = (payload) => {
   return {
     type: GET_DEVICE_DATA,
-    payload
+    payload,
   };
 };
 
 const getDataSuccess = (payload) => {
   return {
     type: GET_DATA_SUCCESS,
-    payload
+    payload,
   };
 };
 
 const getDataError = (payload) => {
   return {
     type: GET_DATA_ERROR,
-    payload
+    payload,
   };
 };
 export { getData, getDataSuccess, getDataError };

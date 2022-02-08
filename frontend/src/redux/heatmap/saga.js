@@ -12,7 +12,7 @@ function* getHeatmap(action) {
 }
 
 function* heatChartSaga() {
-  yield takeLatest('GET_HEATCHART_DATA', getHeatmap);
+  yield takeLatest('GET_HEAT_CHART_DATA', getHeatmap);
 }
 
 export default heatChartSaga;
