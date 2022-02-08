@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LineChart component get data error 1`] = `
+<div>
+  <div
+    class="sc-dkPtRN bShGKG"
+  >
+    <h2
+      class="sc-gsDKAQ ioZYxa"
+    >
+      Error: Network Error
+    </h2>
+  </div>
+</div>
+`;
+
+exports[`LineChart component get data success 1`] = `
+<div>
+  <div
+    class="sc-dkPtRN bShGKG"
+  >
+    <div
+      class="data-group"
+    >
+      <h5
+        class="sc-hKwDye hRiMkt"
+      >
+        Device
+      </h5>
+      <div>
+        <span
+          data-testid="Day"
+          style="opacity: 1;"
+        >
+          Day
+        </span>
+        <span
+          data-testid="Week"
+          style="opacity: 0.3;"
+        >
+          Week
+        </span>
+        <span
+          data-testid="Month"
+          style="opacity: 0.3;"
+        >
+          Month
+        </span>
+      </div>
+    </div>
+    <chart
+      height="404"
+      options="[object Object]"
+      series="[object Object],[object Object]"
+      type="line"
+    />
+  </div>
+</div>
+`;
+
+exports[`LineChart component get data success and group by day 1`] = `
+<div>
+  <div
+    class="sc-dkPtRN bShGKG"
+  >
+    <div
+      class="data-group"
+    >
+      <h5
+        class="sc-hKwDye hRiMkt"
+      >
+        Device
+      </h5>
+      <div>
+        <span
+          data-testid="Day"
+          style="opacity: 1;"
+        >
+          Day
+        </span>
+        <span
+          data-testid="Week"
+          style="opacity: 0.3;"
+        >
+          Week
+        </span>
+        <span
+          data-testid="Month"
+          style="opacity: 0.3;"
+        >
+          Month
+        </span>
+      </div>
+    </div>
+    <chart
+      height="404"
+      options="[object Object]"
+      series="[object Object],[object Object]"
+      type="line"
+    />
+  </div>
+</div>
+`;
+
+exports[`LineChart component get data success and group by month 1`] = `
+<div>
+  <div
+    class="sc-dkPtRN bShGKG"
+  >
+    <div
+      class="data-group"
+    >
+      <h5
+        class="sc-hKwDye hRiMkt"
+      >
+        Device
+      </h5>
+      <div>
+        <span
+          data-testid="Day"
+          style="opacity: 0.3;"
+        >
+          Day
+        </span>
+        <span
+          data-testid="Week"
+          style="opacity: 0.3;"
+        >
+          Week
+        </span>
+        <span
+          data-testid="Month"
+          style="opacity: 1;"
+        >
+          Month
+        </span>
+      </div>
+    </div>
+    <chart
+      height="404"
+      options="[object Object]"
+      series="[object Object],[object Object]"
+      type="line"
+    />
+  </div>
+</div>
+`;
+
+exports[`LineChart component get data success and group by week 1`] = `
+<div>
+  <div
+    class="sc-dkPtRN bShGKG"
+  >
+    <div
+      class="data-group"
+    >
+      <h5
+        class="sc-hKwDye hRiMkt"
+      >
+        Device
+      </h5>
+      <div>
+        <span
+          data-testid="Day"
+          style="opacity: 0.3;"
+        >
+          Day
+        </span>
+        <span
+          data-testid="Week"
+          style="opacity: 1;"
+        >
+          Week
+        </span>
+        <span
+          data-testid="Month"
+          style="opacity: 0.3;"
+        >
+          Month
+        </span>
+      </div>
+    </div>
+    <chart
+      height="404"
+      options="[object Object]"
+      series="[object Object],[object Object]"
+      type="line"
+    />
+  </div>
+</div>
+`;
+
+exports[`LineChart component loading data 1`] = `
+<div>
+  <div
+    class="sc-dkPtRN bShGKG"
+  >
+    <div
+      class="sc-bdvvtL heGnFz"
+    >
+      <div
+        class="spinner-border"
+      />
+    </div>
+  </div>
+</div>
+`;
